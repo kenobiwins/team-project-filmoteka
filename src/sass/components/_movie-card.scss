@@ -1,0 +1,31 @@
+.movie-card {
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include fonts(12px, 16px);
+
+  @include mq(desktop) {
+    @include fonts(20px, 24px);
+  }
+}
+.movie-card img {
+  margin-bottom: 12px;
+  transition: transform var(--transition);
+
+  &:hover,
+  &:focus {
+    transform: scale(1.5);
+  }
+}
+// .movie-card__name {
+// }
+.movie-card__genres {
+  color: map-get($colorPool, 'accent');
+}
+.movie-card__ratio {
+  color: map-get($colorPool, 'white');
+  background-color: map-get($colorPool, 'accent');
+  border-radius: 5px;
+  padding: 1px 9px;
+}

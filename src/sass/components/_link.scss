@@ -1,0 +1,25 @@
+.link {
+  padding: 6px 0;
+  position: relative;
+  text-decoration: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 3px;
+
+    background-color: transparent;
+
+    transition: background-color var(--transition);
+  }
+
+  &:hover,
+  &:focus {
+    &::before {
+      background-color: map-get($colorPool, 'accent-link');
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin: 40px 0;
+  gap: 8px;
+}
+
+.pagination__item {
+  // width: 40px;
+  // height: 40px;
+  border-radius: 5px;
+  padding: 13px 11px;
+  @include fonts(12px, 16px);
+  color: map-get($colorPool, 'black');
+
+  transition: color var(--transition), background-color var(--transition);
+
+  cursor: pointer;
+
+  &[data-action] {
+    background-color: map-get($colorPool, 'gray-light');
+  }
+
+  &:hover,
+  &:focus {
+    color: map-get($colorPool, 'white');
+    background-color: map-get($colorPool, 'orange');
+  }
+}
+
+.pagination__current-page {
+  color: map-get($colorPool, 'white');
+  background-color: map-get($colorPool, 'orange');
+}

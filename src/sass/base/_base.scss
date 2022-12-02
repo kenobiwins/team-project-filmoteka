@@ -1,0 +1,20 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+
+  color: var(--text-color);
+}
+
+section {
+  padding: 20px 0;
+  background-color: var(--bg-color);
+
+  @include mq(tablet) {
+    padding: 60px 0;
+  }
+}

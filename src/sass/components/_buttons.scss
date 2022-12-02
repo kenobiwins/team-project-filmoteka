@@ -1,0 +1,35 @@
+.button {
+  padding: 13px 36px;
+  color: map-get($colorPool, 'white');
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+
+  cursor: pointer;
+  @include fonts(12px, 16px);
+
+  transition: background-color var(--transition), border-color var(--transition);
+
+  &:disabled {
+    background-color: map-get($colorPool, 'grey');
+    border-color: map-get($colorPool, 'grey');
+    color: map-get($colorPool, 'white');
+    cursor: auto;
+    &:hover,
+    &:focus {
+      background-color: map-get($colorPool, 'grey');
+      border-color: map-get($colorPool, 'grey');
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: map-get($colorPool, 'orange');
+    border-color: map-get($colorPool, 'orange');
+  }
+}
+
+.button--active {
+  background-color: map-get($colorPool, 'orange');
+  border-color: map-get($colorPool, 'orange');
+}

@@ -1,0 +1,8 @@
+.logo {
+  @include fonts(30px, 35px);
+}
+.logo__brend {
+  @include mq(mobile) {
+    display: none;
+  }
+}
