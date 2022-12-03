@@ -1,5 +1,21 @@
-.navigation {
-  @include fonts(12px, 14px);
-  text-transform: uppercase;
-  text-align: center;
+.site-nav {
+  margin-left: auto;
+
+  &__list {
+    display: flex;
+    align-items: center;
+  }
+
+  &__item + &__item {
+    margin-left: 39px;
+  }
+
+  &__link {
+    @include fonts(12px, 14px);
+    padding: 6px 0;
+    text-transform: uppercase;
+    text-align: center;
+
+    color: map-get($colorPool, 'white');
+  }
 }

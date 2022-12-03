@@ -8,8 +8,9 @@
     width: 768px;
     padding: 0px 32px;
   }
+
   @include mq(desktop) {
-    width: 1024px;
+    width: 1280px;
     padding: 0px 32px;
   }
 }

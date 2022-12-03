@@ -1,50 +1,73 @@
 .form {
-  margin-left: auto;
-  margin-right: auto;
   position: relative;
 
-  min-width: 280px;
+  &__button {
+    position: absolute;
 
-  @include mq(tablet) {
-    width: 340px;
-  }
-  @include mq(desktop) {
-    width: 400px;
-  }
-}
-.form__input-search {
-  width: 100%;
-  padding: 4px;
-  outline: transparent;
-  border: 0.5px solid transparent;
-  background-color: transparent;
-  color: map-get($colorPool, 'white');
-
-  border-bottom-color: map-get($colorPool, 'white');
-  transition: border-color var(--transition);
-
-  &::placeholder {
-    color: map-get($colorPool, 'white');
+    border: none;
+    background-color: transparent;
+    padding: 15px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
 
-  &:hover,
-  &:focus {
-    border-top-color: map-get($colorPool, 'white');
+  &__icon {
+    position: absolute;
+
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
 }
 
-.form__button {
-  position: absolute;
-  padding: 4px;
-  background-color: transparent;
-  border: none;
-  bottom: 0;
-  right: 0;
-}
+// .form {
+//   margin-left: auto;
+//   margin-right: auto;
+//   position: relative;
 
-.form__alert {
-  padding: 20px 0;
-  @include fonts(14px, 16px, 400);
-  text-align: center;
-  color: map-get($colorPool, 'accent-link');
-}
+//   min-width: 280px;
+
+//   @include mq(tablet) {
+//     width: 340px;
+//   }
+//   @include mq(desktop) {
+//     width: 400px;
+//   }
+// }
+// .form__input-search {
+//   width: 100%;
+//   padding: 4px;
+//   outline: transparent;
+//   border: 0.5px solid transparent;
+//   background-color: transparent;
+//   color: map-get($colorPool, 'white');
+
+//   border-bottom-color: map-get($colorPool, 'white');
+//   transition: border-color var(--transition);
+
+//   &::placeholder {
+//     color: map-get($colorPool, 'white');
+//   }
+
+//   &:hover,
+//   &:focus {
+//     border-top-color: map-get($colorPool, 'white');
+//   }
+// }
+
+// .form__button {
+//   position: absolute;
+//   padding: 4px;
+//   background-color: transparent;
+//   border: none;
+//   bottom: 0;
+//   right: 0;
+// }
+
+// .form__alert {
+//   padding: 20px 0;
+//   @include fonts(14px, 16px, 400);
+//   text-align: center;
+//   color: map-get($colorPool, 'accent-link');
+// }

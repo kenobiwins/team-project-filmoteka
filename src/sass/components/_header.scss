@@ -1,0 +1,130 @@
+.page-header {
+  padding-top: 40px;
+  width: 100%;
+  min-height: 230px;
+
+  background-color: map-get($colorPool, 'grey');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  &__library {
+    background-image: url(../images/header-my-library/mobile/header-library1x.jpg);
+
+    @include mediaScreenRatio2x {
+      background-image: url(../images/header-my-library/mobile/header-library2x.jpg);
+    }
+
+    @include mq(tablet) {
+      background-image: url(../images/header-my-library/tablet/header-library1x.jpg);
+
+      @include mediaScreenRatio2x {
+        background-image: url(../images/header-my-library/tablet/header-library2x.jpg);
+      }
+    }
+
+    @include mq(desktop) {
+      background-image: url(../images/header-my-library/desktop/header-library1x.jpg);
+
+      @include mediaScreenRatio2x {
+        background-image: url(../images/header-my-library/desktop/header-library2x.jpg);
+      }
+    }
+  }
+
+  &__home {
+    background-image: url(../images/header-home/mobile/header-home1x.jpg);
+
+    @include mediaScreenRatio2x {
+      background-image: url(../images/header-home/mobile/header-home2x.jpg);
+    }
+
+    @include mq(tablet) {
+      background-image: url(../images/header-home/tablet/header-home1x.jpg);
+
+      @include mediaScreenRatio2x {
+        background-image: url(../images/header-home/tablet/header-home2x.jpg);
+      }
+    }
+
+    @include mq(desktop) {
+      background-image: url(../images/header-home/desktop/header-home1x.jpg);
+
+      @include mediaScreenRatio2x {
+        background-image: url(../images/header-home/desktop/header-home2x.jpg);
+      }
+    }
+  }
+
+  &__inner-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  &__inner-form {
+    margin-top: 54px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+    @include mq(tablet) {
+      margin-top: 46px;
+      width: 336px;
+    }
+
+    @include mq(desktop) {
+      width: 394px;
+    }
+  }
+
+  &__inner-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+
+    @include mq(tablet) {
+      margin-top: 46px;
+    }
+  }
+
+  &__input {
+    @include fonts(14px, 16px, 400);
+    padding-bottom: 4px;
+    width: 100%;
+
+    color: map-get($colorPool, 'white');
+    background-color: transparent;
+
+    border: none;
+    border-bottom: 0.5px solid;
+    border-bottom-color: map-get($colorPool, 'white');
+    opacity: 0.8;
+    outline: none;
+
+    &::placeholder {
+      @include fonts(14px, 16px, 400);
+      padding-bottom: 4px;
+
+      color: map-get($colorPool, 'white');
+    }
+  }
+
+  &__error {
+    margin-top: 16px;
+
+    @include mq(tablet) {
+      margin-top: 20px;
+    }
+
+    @include mq(desktop) {
+      margin-top: 21px;
+    }
+  }
+
+  &__error-text {
+    @include fonts(14px, 16px, 400);
+
+    color: map-get($colorPool, 'accent-link');
+  }
+}

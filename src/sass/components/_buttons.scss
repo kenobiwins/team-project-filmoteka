@@ -1,14 +1,57 @@
 .button {
-  padding: 13px 36px;
-  color: map-get($colorPool, 'white');
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 5px;
+  padding-left: 36px;
+  padding-right: 36px;
+  min-height: 44px;
+  min-width: 129px;
 
-  cursor: pointer;
   @include fonts(12px, 16px);
+  text-transform: uppercase;
+  text-align: center;
+
+  background-color: transparent;
+  color: map-get($colorPool, 'white');
+
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: map-get($colorPool, 'white');
 
   transition: background-color var(--transition), border-color var(--transition);
+  cursor: pointer;
+
+  @include mq(tablet) {
+    padding-left: 46px;
+    padding-right: 46px;
+    min-width: 152px;
+  }
+
+  @include mq(desktop) {
+    padding-left: 41px;
+    padding-right: 41px;
+    min-width: 148px;
+  }
+
+  &--watched + &--queue {
+    margin-left: 20px;
+
+    @include mq(tablet) {
+      margin-left: 32px;
+    }
+
+    @include mq(desktop) {
+      margin-left: 16px;
+    }
+  }
+
+  &--active {
+    background-color: map-get($colorPool, 'orange');
+    border-color: map-get($colorPool, 'orange');
+  }
+
+  &:hover,
+  &:focus {
+    background-color: map-get($colorPool, 'orange');
+    border-color: map-get($colorPool, 'orange');
+  }
 
   &:disabled {
     background-color: map-get($colorPool, 'grey');
@@ -21,15 +64,4 @@
       border-color: map-get($colorPool, 'grey');
     }
   }
-
-  &:hover,
-  &:focus {
-    background-color: map-get($colorPool, 'orange');
-    border-color: map-get($colorPool, 'orange');
-  }
-}
-
-.button--active {
-  background-color: map-get($colorPool, 'orange');
-  border-color: map-get($colorPool, 'orange');
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Home</title>
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +13,13 @@
     />
     <!-- styles -->
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <!-- ❗️❗️❗️ Add partials like so for every page -->
+      <include src="./partials/header.html"></include>
+    </main>
+
+    <script src="./index.js" type="module"></script>
+  </body>
 </html>
