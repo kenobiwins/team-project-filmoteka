@@ -1,3 +1,5 @@
+import { getPopularMovies, searchMovies } from '../API/API';
+
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
 export function pagination(page, pages) {
@@ -60,7 +62,7 @@ export function pagination(page, pages) {
   refs.pagination.innerHTML = markup;
 }
 
-export function paginationTrendMovie(e) {
+export async function paginationTrendMovie(e) {
   const { target, currentTarget } = e;
 
   if (target === currentTarget || target === '...') {
@@ -69,7 +71,7 @@ export function paginationTrendMovie(e) {
 
   if (target.dataset.action === 'next') {
     PAGE += 1;
-    // const response = await fetchTrendingMovies(PAGE);
+    const response = await getPopularMovies(PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
     // pagination(response.data.page, response.data.total_pages);
 
@@ -77,19 +79,19 @@ export function paginationTrendMovie(e) {
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
-    // const response = await fetchTrendingMovies(PAGE);
+    const response = await getPopularMovies(PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
     // pagination(response.data.page, response.data.total_pages);
 
     return;
   }
   PAGE = Number(target.textContent);
-  //   const response = await fetchTrendingMovies(PAGE);
+  const response = await getPopularMovies(PAGE);
   //   insertMarkup(refs.mainContainer, await renderCards(response.data));
   //   pagination(response.data.page, response.data.total_pages);
 }
 
-export function paginationOnSearch(e) {
+export async function paginationOnSearch(e) {
   const { target, currentTarget } = e;
 
   if (target === currentTarget || target === '...') {
@@ -97,20 +99,20 @@ export function paginationOnSearch(e) {
   }
   if (target.dataset.action === 'next') {
     PAGE += 1;
-    // const response = await fetchMovies(refs.form.searchQuery.value, PAGE);
+    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
     // pagination(response.data.page, response.data.total_pages);
     return;
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
-    // const response = await fetchMovies(refs.form.searchQuery.value, PAGE);
+    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
     // pagination(response.data.page, response.data.total_pages);
     return;
   }
   PAGE = Number(target.textContent);
-  //   const response = await fetchMovies(refs.form.searchQuery.value, PAGE);
+  // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
   //   insertMarkup(refs.mainContainer, await renderCards(response.data));
   //   pagination(response.data.page, response.data.total_pages);
 }
