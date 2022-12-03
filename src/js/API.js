@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-export { getPopularMovies, searchMovies, getMovieById, getGenresList };
+export {
+  getPopularMovies,
+  searchMovies,
+  getMovieById,
+  getGenresList,
+  getTrailerById,
+};
 
 const API_KEY = 'a6c77db842e34b0d748568175c4ac730';
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -55,6 +61,19 @@ async function getGenresList() {
       throw new Error('Genres list is not available');
     }
     return response.data.genres;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getTrailerById(id) {
+  try {
+    const URL = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`;
+    const response = await axios.get(`${URL}`);
+    if (!response.status) {
+      throw new Error('There is no trailer for this film');
+    }
+    return response;
   } catch (error) {
     console.log(error);
   }
