@@ -1,2 +1,0 @@
-const t={btnWatched:document.querySelector("#btn-watched"),btnQueue:document.querySelector("#btn-queue")};t.btnWatched.addEventListener("click",(function(e){e.preventDefault(),t.btnQueue.classList.remove("button--active"),e.target.classList.add("button--active")})),t.btnQueue.addEventListener("click",(function(e){e.preventDefault(),t.btnWatched.classList.remove("button--active"),e.target.classList.add("button--active")}));
-//# sourceMappingURL=my-library.327c2842.js.map

@@ -1,0 +1,2 @@
+const e={btnWatched:document.querySelector("#btn-watched"),btnQueue:document.querySelector("#btn-queue"),form:document.querySelector(".page-header__form")};e.btnWatched.addEventListener("click",(function(t){t.preventDefault(),e.btnQueue.classList.remove("button--active"),t.target.classList.add("button--active")})),e.btnQueue.addEventListener("click",(function(t){t.preventDefault(),e.btnWatched.classList.remove("button--active"),t.target.classList.add("button--active")}));
+//# sourceMappingURL=my-library.04efc932.js.map

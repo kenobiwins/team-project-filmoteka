@@ -1,1 +1,0 @@
-{"mappings":"AAGcA,SAASC,cAAc,gBACzBD,SAASC,cAAc","sources":["src/js/refs.js"],"sourcesContent":["export { refs };\n\nconst refs = {\n  btnWatched: document.querySelector('#btn-watched'),\n  btnQueue: document.querySelector('#btn-queue'),\n};\n"],"names":["document","querySelector"],"version":3,"file":"index.39f8ff1f.js.map"}
