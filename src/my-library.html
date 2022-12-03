@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My library</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- styles -->
+    <link rel="stylesheet" href="./sass/index.scss" />
+  </head>
+  <body>
+    <header class="page-header page-header__library">
+      <div class="container">
+        <div class="page-header__inner-nav">
+          <a href="./index.html" class="link logo">
+            <svg class="icon logo__icon" width="24" height="24">
+              <use href="./images/sprite/icons.svg#icon-film"></use>
+            </svg>
+            <span class="logo__text">Filmoteka</span>
+          </a>
+
+          <nav class="site-nav">
+            <ul class="site-nav__list">
+              <li class="site-nav__item">
+                <a href="./index.html" class="link site-nav__link">Home</a>
+              </li>
+              <li class="site-nav__item">
+                <a href="" class="link link--current site-nav__link"
+                  >my library</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="page-header__inner-button">
+          <button
+            type="button"
+            class="button button--watched button--active"
+            id="btn-watched"
+          >
+            Watched
+          </button>
+          <button type="button" class="button button--queue" id="btn-queue">
+            queue
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title visually-hidden">Filmoteka</h1>
+        <div class="library">
+          <img
+            src="./images/noimage.jpg"
+            class="library__img"
+            alt="This isn't films"
+          />
+        </div>
+      </div>
+    </section>
+
+    <script src="./my-library.js" type="module"></script>
+  </body>
+</html>

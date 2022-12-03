@@ -1,8 +1,22 @@
 .logo {
-  @include fonts(30px, 35px);
-}
-.logo__brend {
-  @include mq(mobile) {
+  display: flex;
+  align-items: center;
+  color: map-get($colorPool, 'white');
+
+  &__text {
     display: none;
+    @include fonts(30px, 35px);
+
+    @include mq(tablet) {
+      display: block;
+    }
+  }
+
+  &__icon {
+    margin-right: 8px;
+
+    @include mq(tablet) {
+      margin-right: 10px;
+    }
   }
 }

@@ -1,0 +1,9 @@
+.library {
+  display: flex;
+  justify-content: center;
+
+  &__img {
+    width: 280px;
+    height: 350px;
+  }
+}
