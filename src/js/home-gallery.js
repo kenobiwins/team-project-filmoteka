@@ -1,1 +1,1 @@
-// hello
+import './render';
