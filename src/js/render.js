@@ -83,7 +83,7 @@ function createGalery(data) {
           vote_average = 'N/A';
         }
 
-        return `<li class="films-list__item" id="${id}">
+        return `<li class="films-list__item" data-id="${id}">
   <a href="" class="films-list__link">
     <img
       src="${poster_path}"
