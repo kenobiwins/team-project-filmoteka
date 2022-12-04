@@ -8,9 +8,13 @@
   visibility: visible;
   opacity: 1;
 
-  background-color: #00000033;
+  background-color: #00000025;
 
   transition: opacity var(--transition), visibility var(--transition);
+
+  @include mq(desktop) {
+    background-color: transparent;
+  }
 
   &.is-hidden {
     visibility: hidden;
@@ -18,114 +22,103 @@
     pointer-events: none;
   }
 }
+
 .modal {
   display: flex;
   padding: 40px 36px;
+  width: 280px;
 
   background-color: map-get($colorPool, 'white');
-  box-shadow: 0px 2px 1px 0px #00000033, 0px 1px 1px 0px #00000024,
-    0px 1px 3px 0px #0000001f;
-
-  border: none;
-  border-radius: 4px;
-
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  top: 20px;
+  transform: translate(-50%, 0);
   overflow: auto;
 
   @include mq(mobile) {
     flex-direction: column;
     gap: 20px;
+    padding: 40px 20px;
 
-    min-width: 95vw;
-    height: 85vh;
-    padding: 48px 20px 40px;
   }
   @include mq(tablet) {
     width: 704px;
-
-    padding: 40px 36px;
+    top: 219px;
+    padding: 40px 72px 40px 36px;
     gap: 68px;
   }
   @include mq(desktop) {
     width: 806px;
+    top: 150px;
     padding: 40px 12px;
     gap: 16px;
   }
 }
-.modal__img-wrapper {
-  margin: auto;
-  @include mq(mobile) {
-    // width: 240px;
-  }
 
+.modal__img-wrapper {
+  border-radius: 5px;
+  @include mq(mobile) {
+    width: 240px;
+  }
   @include mq(tablet) {
-    // width: 264px;
+    width: 264px;
+
   }
   @include mq(desktop) {
     width: 375px;
   }
 }
-.modal__title {
-  @include fonts(20px, 23px, 500);
 
-  @include mq(tablet) {
-  }
-
-  @include mq(desktop) {
-    @include fonts(30px, 34px);
-  }
-}
-.modal__info-wrapper {
+.modal__info {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: map-get($colorPool, 'black');
+}
 
-  @include mq(mobile) {
-  }
-
-  @include mq(tablet) {
-    flex-shrink: 2;
-  }
+.modal__title {
+  @include fonts(20px, 23px, 500);
 
   @include mq(desktop) {
-    flex-shrink: 2.5;
+    @include fonts(30px, 35px);
   }
 }
-.modal__ratio-info-list {
+
+.modal__data {
   display: flex;
   flex-direction: column;
   gap: 8px;
-
   @include fonts(12px, 16px, 500);
+
 }
-.modal__current-ratio {
+
+.modal__data-number {
+  @include fonts(12px, 14px);
+}
+
+.modal__data-ratio {
   padding: 1px 9px;
   border-radius: 5px;
   color: map-get($colorPool, 'white');
   background-color: map-get($colorPool, 'orange');
 }
-.modal__ratio-info {
+
+.modal__data-info {
   display: flex;
   align-items: baseline;
 }
-.modal__ratio-name {
-  width: 50%;
-  margin-right: auto;
+.modal__data-info--grey {
   color: map-get($colorPool, 'grey');
+  width: 108px;
 }
 
-.modal__ratio-value {
-  width: 50%;
-}
-.modal__subtitle {
+.modal__description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   @include fonts(12px, 16px, 500);
   margin-bottom: 8px;
 }
-.modal__full-info {
+.modal__description-about {
   @include fonts(12px, 20px, 500);
 }
 
@@ -136,6 +129,9 @@
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border: transparent;
   background-color: transparent;
@@ -148,26 +144,46 @@
     color: map-get($colorPool, 'orange');
   }
 }
-.form__buttons-wrapper {
+
+.button-close__icon {
+  fill: currentColor;
+}
+
+.modal__buttons{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
+  @include mq(tablet) {
+    gap: 15px;
+  }
   @include mq(desktop) {
     justify-content: start;
+    margin-left: 8px;
   }
 }
+
 .modal__button {
   @include fonts(12px, 16px, 500);
   color: map-get($colorPool, 'black');
   border: 1px solid black;
+  border-radius: 5px;
+  background-color: map-get($colorPool, 'white');
+  width: 110px;
+  height: 44px;
+  padding: 5px;
 
   &:hover,
   &:focus {
     color: map-get($colorPool, 'white');
+    border: 1px solid orange;
+    background-color: map-get($colorPool, 'orange');
+
   }
-  @include mq(mobile) {
-    width: 110px;
-    padding: 6px 27px;
+  @include mq(tablet) {
+    width: 125px;
+  }
+  @include mq(desktop) {
+    width: 136px;
   }
 }
