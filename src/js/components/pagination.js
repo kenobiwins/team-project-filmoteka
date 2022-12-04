@@ -1,11 +1,12 @@
 import { getPopularMovies, searchMovies } from '../API/API';
-
+import { refs } from '../refs/refs';
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
 export function pagination(page, pages) {
   let markup = '';
 
   PAGE = page;
+  PAGES = pages;
   const beforeTwoPage = page - 2;
   const beforeOnePage = page - 1;
   const afterOnePage = page + 1;
@@ -36,24 +37,24 @@ export function pagination(page, pages) {
     markup += `<li class='pagination__item'>${beforeOnePage}</li>`;
   }
   markup += `<li class='pagination__item pagination__current-page'>${PAGE}</li>`;
-  if (!mqMoreThanMobile && pages - 1 >= PAGE) {
+  if (!mqMoreThanMobile && PAGES - 1 >= PAGE) {
     markup += `<li class='pagination__item'>${afterOnePage}</li>`;
-  } else if (pages - 1 > PAGE) {
+  } else if (PAGES - 1 > PAGE) {
     markup += `<li class='pagination__item'>${afterOnePage}</li>`;
   }
-  if (!mqMoreThanMobile && pages - 2 >= PAGE) {
+  if (!mqMoreThanMobile && PAGES - 2 >= PAGE) {
     markup += `<li class='pagination__item'>${afterTwoPage}</li>`;
-  } else if (pages - 2 > PAGE) {
+  } else if (PAGES - 2 > PAGE) {
     markup += `<li class='pagination__item'>${afterTwoPage}</li>`;
   }
-  if (pages - 3 > PAGE) {
+  if (PAGES - 3 > PAGE) {
     if (mqMoreThanMobile) {
       markup += `<li>...</li>`;
     }
   }
-  if (pages > PAGE) {
+  if (PAGES > PAGE) {
     if (mqMoreThanMobile) {
-      markup += `<li class='pagination__item'>${pages}</li>`;
+      markup += `<li class='pagination__item'>${PAGES}</li>`;
       markup += `<li class='pagination__item' data-action='next'>&#129146;</li>`;
     } else {
       markup += `<li class='pagination__item' data-action='next'>&#129146;</li>`;

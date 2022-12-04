@@ -6,6 +6,9 @@ import {
   getTrailerById,
 } from './API/API';
 
+import { pagination, paginationTrendMovie } from './components/pagination';
+import { refs } from './refs/refs';
+
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
@@ -22,6 +25,9 @@ formRef.addEventListener('submit', onFormSubmit);
 window.addEventListener('DOMContentLoaded', () => {
   getPopularMovies(page).then(data => {
     galleryMarkup(createGalery(data));
+    console.log(data.data);
+    pagination(data.data.page, data.data.total_pages);
+    refs.pagination.addEventListener('click', paginationTrendMovie);
   });
 });
 
