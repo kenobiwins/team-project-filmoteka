@@ -83,7 +83,7 @@ function createGalery(data) {
           vote_average = 'N/A';
         }
 
-        return `<li class="films-list__item">
+        return `<li class="films-list__item" id="${id}">
   <a href="" class="films-list__link">
     <img
       src="${poster_path}"
@@ -94,7 +94,11 @@ function createGalery(data) {
     <h2 class="films-list__title">${original_title}</h2>
     <span class="films-list__text-ganres">${filmGenres}</span>
     <span class="films-list__span">|</span>
-    <span class="films-list__text-date">${release_date.split('-')[0]}</span>
+    <span class="films-list__text-date">${release_date.split('-')[0]}|</span>
+    <span class="films-list__text-date">${String(vote_average).slice(
+      0,
+      3
+    )}</span>
   </a>
 </li>`;
       }
