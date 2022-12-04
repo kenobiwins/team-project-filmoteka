@@ -10,6 +10,14 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    transition: color var(--transition);
+
+    color: map-get($colorPool, 'white');
+
+    &:hover,
+    &:focus {
+      color: map-get($colorPool, 'orange');
+    }
   }
 
   &__icon {
