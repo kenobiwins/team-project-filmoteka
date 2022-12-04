@@ -7,12 +7,11 @@ import {
 } from './API/API';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
-const FAKE_POSTER =
-  'https://freesvg.org/img/cyberscooty-movie-video-tape-remix.png';
+const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
 const galleryRef = document.querySelector('.films-list');
 const formRef = document.querySelector('.page-header__form');
-const inputRef = document.querySelector('.page-header__input');
+// const inputRef = document.querySelector('.page-header__input');
 const errorSearchRef = document.querySelector('.page-header__error-text');
 // let searchQuery = '';
 let page = 1;
@@ -20,8 +19,10 @@ let page = 1;
 formRef.addEventListener('submit', onFormSubmit);
 
 //--------------------RENDER POPULAR MOVIES-----------------
-getPopularMovies(page).then(data => {
-  galleryMarkup(createGalery(data));
+window.addEventListener('DOMContentLoaded', () => {
+  getPopularMovies(page).then(data => {
+    galleryMarkup(createGalery(data));
+  });
 });
 
 //--------------------RENDER GALLERY BY SEARCH-----------------
@@ -32,6 +33,9 @@ function onFormSubmit(e) {
   } = e;
   // Loading.circle();
   // let searchQuery = inputRef.value.trim();
+  if (!searchQuery.value) {
+    return;
+  }
   if (searchQuery != '') {
     searchMovies(searchQuery.value.trim(), page).then(data => {
       if (data.data.results.length === 0) {
@@ -40,7 +44,7 @@ function onFormSubmit(e) {
           errorSearchRef.classList.add('is-hidden');
         }, 5000);
 
-        inputRef.value = '';
+        searchQuery.value = '';
       } else {
         clearGallery();
         page = 1;
@@ -141,49 +145,60 @@ function clearGallery() {
 
 // console.log(getTrailerById(436270));
 
+const modalFilm = document.querySelector('.backdrop');
 
-const modalFilm = document.querySelector('.backdrop')
-
-galleryRef.addEventListener('click', fullFilmInfo)
-modalFilm.addEventListener('click', closeModal)
-window.addEventListener('keydown', closeModalByEsc)
+galleryRef.addEventListener('click', fullFilmInfo);
+modalFilm.addEventListener('click', closeModal);
+window.addEventListener('keydown', closeModalByEsc);
 
 function closeModal(e) {
-  if (e.target === modalFilm) {  
-    modalFilm.classList.add("is-hidden")
+  if (e.target === modalFilm) {
+    modalFilm.classList.add('is-hidden');
     // modalFilm.removeEventListener('click', closeModal)
   }
 }
 
 function closeModalByEsc(e) {
-  if (e.code === 'Escape') {  
-    modalFilm.classList.add("is-hidden")
+  if (e.code === 'Escape') {
+    modalFilm.classList.add('is-hidden');
     // window.removeEventListener('keydown', closeModalByEsc)
   }
 }
 
 function fullFilmInfo(e) {
   e.preventDefault();
-  const filmId = e.target.closest('li').dataset.id
-  modalFilm.innerHTML=''
-  
-  getMovieById(filmId).then(data => {
-    return data.data})
-  .then(data => {
-  const filmInfo = `<div class="modal">
+  const filmId = e.target.closest('li').dataset.id;
+  modalFilm.innerHTML = '';
+
+  getMovieById(filmId)
+    .then(data => {
+      return data.data;
+    })
+    .then(data => {
+      const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
       <use href="./images/svg/symbol-defs.svg#icon-close"></use>
     </svg>
   </button>
-  <img class="modal__img-wrapper" src="${BASE_POSTER_URL}${data.poster_path}" alt="${data.original_title}">
+  <img class="modal__img-wrapper" src="${BASE_POSTER_URL}${
+        data.poster_path
+      }" alt="${data.original_title}">
   <div class="modal__info">
     <p class="modal__title">${data.original_title}</p>
     <div class="modal__data">
-        <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average.toFixed(1)}</span>/ ${data.vote_count}</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Popularity</span><span class="modal__data-number">${data.popularity.toFixed(1)}</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${data.original_title}</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres.map(genre => genre.name).join(', ')}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average.toFixed(
+          1
+        )}</span>/ ${data.vote_count}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Popularity</span><span class="modal__data-number">${data.popularity.toFixed(
+          1
+        )}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${
+          data.original_title
+        }</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres
+          .map(genre => genre.name)
+          .join(', ')}</span></p>
     </div>
     <div class="modal__description">
         <p class="modal__description-title">About</p>
@@ -194,9 +209,8 @@ function fullFilmInfo(e) {
         <button class="modal__button" type="button">ADD TO QUEUE</button>
     </div>
   </div>
-  `
-  modalFilm.insertAdjacentHTML('beforeend', filmInfo)
-  modalFilm.classList.remove("is-hidden")
-  })
+  `;
+      modalFilm.insertAdjacentHTML('beforeend', filmInfo);
+      modalFilm.classList.remove('is-hidden');
+    });
 }
-
