@@ -1,0 +1,33 @@
+.footer{
+    background-color:map-get($colorPool, 'gray-light');
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    text-align: center;
+    
+}
+.footer__text{
+    color: map-get($colorPool, 'text');
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.14;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include mq(tablet) {
+            font-size: 16px;
+                line-height: 1.19;
+        }    
+
+}
+.footer__icon{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.footer__link{
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-left: 5px;
+}
