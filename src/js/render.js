@@ -11,26 +11,35 @@ const FAKE_POSTER =
   'https://freesvg.org/img/cyberscooty-movie-video-tape-remix.png';
 const LOCALSTORAGE_KEY = 'genres';
 const galleryRef = document.querySelector('.films-list');
+const formRef = document.querySelector('.page-header__form');
+const inputRef = document.querySelector('.page-header__input');
+let searchQuery = '';
+let page = 1;
 
-let searchQuery = 'dracula';
-page = 1;
+formRef.addEventListener('submit', onFormSubmit);
+
+//--------------------RENDER POPULAR MOVIES-----------------
+getPopularMovies(page).then(data => {
+  galleryMarkup(createGalery(data));
+});
+
+//--------------------RENDER GALLERY BY SEARCH-----------------
+function onFormSubmit(e) {
+  e.preventDefault();
+  clearGallery();
+  // Loading.circle();
+  searchQuery = inputRef.value;
+  page = 1;
+  searchMovies(searchQuery, page).then(data => {
+    console.log(data);
+    galleryMarkup(createGalery(data));
+  });
+}
 
 getGenresList().then(array => {
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
 });
 const genres = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-
-//--------------------RENDER GALLERY BY SEARCH-----------------
-
-// searchMovies(searchQuery, page).then(data => {
-//   galleryMarkup(createGalery(data));
-// });
-
-//--------------------RENDER POPULAR MOVIES-----------------
-
-getPopularMovies(page).then(data => {
-  galleryMarkup(createGalery(data));
-});
 
 function createGalery(data) {
   return data.data.results
@@ -97,8 +106,12 @@ function galleryMarkup(string) {
   galleryRef.insertAdjacentHTML('beforeend', string);
 }
 
-console.log(getPopularMovies(page));
+function clearGallery() {
+  galleryRef.innerHTML = '';
+}
 
-console.log(getMovieById(67892));
+// console.log(getPopularMovies(page));
+
+// console.log(getMovieById(67892));
 
 // console.log(getTrailerById(436270));
