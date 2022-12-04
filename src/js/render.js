@@ -12,7 +12,7 @@ import { refs } from './refs/refs';
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
-const galleryRef = document.querySelector('.films-list');
+// const galleryRef = document.querySelector('.films-list');
 const formRef = document.querySelector('.page-header__form');
 // const inputRef = document.querySelector('.page-header__input');
 const errorSearchRef = document.querySelector('.page-header__error-text');
@@ -72,7 +72,7 @@ getGenresList().then(array => {
 });
 const genres = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
-function createGalery(data) {
+export function createGalery(data) {
   return data.data.results
     .map(
       ({
@@ -138,11 +138,11 @@ function createGalery(data) {
 }
 
 function galleryMarkup(string) {
-  galleryRef.insertAdjacentHTML('beforeend', string);
+  refs.galleryHome.insertAdjacentHTML('beforeend', string);
 }
 
 function clearGallery() {
-  galleryRef.innerHTML = '';
+  refs.galleryHome.innerHTML = '';
 }
 
 // console.log(getPopularMovies(page));
@@ -153,7 +153,7 @@ function clearGallery() {
 
 const modalFilm = document.querySelector('.backdrop');
 
-galleryRef.addEventListener('click', fullFilmInfo);
+refs.galleryHome.addEventListener('click', fullFilmInfo);
 modalFilm.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalByEsc);
 

@@ -1,4 +1,5 @@
 import { getPopularMovies, searchMovies } from '../API/API';
+import { createGalery } from '../render';
 import { refs } from '../refs/refs';
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
@@ -74,7 +75,8 @@ export async function paginationTrendMovie(e) {
     PAGE += 1;
     const response = await getPopularMovies(PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
-    // pagination(response.data.page, response.data.total_pages);
+    refs.galleryHome.innerHTML = createGalery(response);
+    pagination(response.data.page, response.data.total_pages);
 
     return;
   }
@@ -82,14 +84,16 @@ export async function paginationTrendMovie(e) {
     PAGE -= 1;
     const response = await getPopularMovies(PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
-    // pagination(response.data.page, response.data.total_pages);
+    refs.galleryHome.innerHTML = createGalery(response);
+    pagination(response.data.page, response.data.total_pages);
 
     return;
   }
   PAGE = Number(target.textContent);
   const response = await getPopularMovies(PAGE);
   //   insertMarkup(refs.mainContainer, await renderCards(response.data));
-  //   pagination(response.data.page, response.data.total_pages);
+  refs.galleryHome.innerHTML = createGalery(response);
+  pagination(response.data.page, response.data.total_pages);
 }
 
 export async function paginationOnSearch(e) {

@@ -5,4 +5,5 @@ const refs = {
   btnQueue: document.querySelector('#btn-queue'),
   form: document.querySelector('.page-header__form'),
   pagination: document.querySelector('.pagination'),
+  galleryHome: document.querySelector('.films-list'),
 };
