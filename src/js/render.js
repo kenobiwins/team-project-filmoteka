@@ -13,7 +13,8 @@ const LOCALSTORAGE_KEY = 'genres';
 const galleryRef = document.querySelector('.films-list');
 const formRef = document.querySelector('.page-header__form');
 const inputRef = document.querySelector('.page-header__input');
-let searchQuery = '';
+const errorSearchRef = document.querySelector('.page-header__error-text');
+// let searchQuery = '';
 let page = 1;
 
 formRef.addEventListener('submit', onFormSubmit);
@@ -26,14 +27,34 @@ getPopularMovies(page).then(data => {
 //--------------------RENDER GALLERY BY SEARCH-----------------
 function onFormSubmit(e) {
   e.preventDefault();
-  clearGallery();
+  const {
+    currentTarget: { searchQuery },
+  } = e;
   // Loading.circle();
-  searchQuery = inputRef.value;
-  page = 1;
-  searchMovies(searchQuery, page).then(data => {
-    console.log(data);
-    galleryMarkup(createGalery(data));
-  });
+  // let searchQuery = inputRef.value.trim();
+  if (searchQuery != '') {
+    searchMovies(searchQuery.value.trim(), page).then(data => {
+      if (data.data.results.length === 0) {
+        errorSearchRef.classList.remove('is-hidden');
+        setTimeout(() => {
+          errorSearchRef.classList.add('is-hidden');
+        }, 5000);
+
+        inputRef.value = '';
+      } else {
+        clearGallery();
+        page = 1;
+        galleryMarkup(createGalery(data));
+      }
+    });
+  }
+  //   else {
+  //     clearGallery();
+  //     getPopularMovies(page).then(data => {
+  //       galleryMarkup(createGalery(data));
+  //     });
+  //   }
+  // e.currentTarget.reset();
 }
 
 getGenresList().then(array => {
