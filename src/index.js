@@ -1,1 +1,2 @@
-import './js/refs';
+import './js/API/API';
+import './js/home-gallery';
