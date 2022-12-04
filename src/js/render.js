@@ -27,10 +27,13 @@ getPopularMovies(page).then(data => {
 //--------------------RENDER GALLERY BY SEARCH-----------------
 function onFormSubmit(e) {
   e.preventDefault();
+  const {
+    currentTarget: { searchQuery },
+  } = e;
   // Loading.circle();
-  let searchQuery = inputRef.value.trim();
+  // let searchQuery = inputRef.value.trim();
   if (searchQuery != '') {
-    searchMovies(searchQuery, page).then(data => {
+    searchMovies(searchQuery.value.trim(), page).then(data => {
       if (data.data.results.length === 0) {
         errorSearchRef.classList.remove('is-hidden');
         setTimeout(() => {
