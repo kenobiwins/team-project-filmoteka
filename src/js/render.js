@@ -80,6 +80,7 @@ function createGalery(data) {
       src="${poster_path}"
       alt="${original_title}"
       class="films-list__img"
+      loading="lazy"
     />
     <h2 class="films-list__title">${original_title}</h2>
     <span class="films-list__text-ganres">${filmGenres}</span>
