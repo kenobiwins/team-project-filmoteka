@@ -35,6 +35,7 @@
   max-height: 95%;
   transform: translate(-50%, 0);
   box-shadow: 4px 3px 12px -1px #ff6b0880;
+  overflow: auto;
 
   @include mq(mobile) {
     flex-direction: column;
@@ -47,7 +48,6 @@
     padding: 40px 72px 40px 36px;
     gap: 68px;
     max-height: 50%;
-
   }
   @include mq(desktop) {
     width: 806px;
@@ -55,12 +55,12 @@
     padding: 40px 12px;
     gap: 16px;
     max-height: 80%;
-
   }
 }
 
 .modal__img-wrapper {
   border-radius: 5px;
+  height: 100%;
   @include mq(mobile) {
     width: 240px;
   }

@@ -259,8 +259,8 @@ function fullFilmInfo(e) {
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons">
-        <button class="modal__button" type="button">ADD TO WATCHED</button>
-        <button class="modal__button" type="button">ADD TO QUEUE</button>
+        <button class="modal__button" type="button" data-value="watched">ADD TO WATCHED</button>
+        <button class="modal__button" type="button" data-value="queue">ADD TO QUEUE</button>
     </div>
   </div>
   `;
