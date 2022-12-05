@@ -155,46 +155,84 @@ function clearGallery() {
 
 // const modalFilm = document.querySelector('.backdrop');
 
+
+//--------------------RENDER FILM-MODAL BY CLICK-----------------
+
 refs.galleryHome.addEventListener('click', fullFilmInfo);
 refs.modalFilm.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalByEsc);
 
+
 function closeModal(e) {
   if (e.target === refs.modalFilm) {
     refs.modalFilm.classList.add('is-hidden');
-    // modalFilm.removeEventListener('click', closeModal)
+    document.querySelector('body').style.overflow = 'auto';
   }
 }
 
 function closeModalByEsc(e) {
   if (e.code === 'Escape') {
     refs.modalFilm.classList.add('is-hidden');
-    // window.removeEventListener('keydown', closeModalByEsc)
+    document.querySelector('body').style.overflow = 'auto';
   }
+}
+
+function closeModalByBtn() {
+  refs.modalFilm.classList.add('is-hidden');
+  document.querySelector('body').style.overflow = 'auto';
 }
 
 function fullFilmInfo(e) {
   e.preventDefault();
+  document.querySelector('body').style.overflow = 'hidden';
   const filmId = e.target.closest('li').dataset.id;
-  // console.log(filmId);
-  refs.modalFilm.innerHTML = '';
+  refs.modalFilm.removeChild(refs.modalFilm.lastElementChild);
+
 
   getMovieById(filmId)
     .then(data => {
       return data.data;
     })
     .then(data => {
+      
+      if (!data.poster_path) {
+        data.poster_path = FAKE_POSTER;
+      } else {
+        data.poster_path = BASE_POSTER_URL + data.poster_path;
+      }
+
+      if (!data.title) {
+        title = 'no name';
+      } 
+
+      if (!data.vote_average) {
+        data.vote_average = 'N/A';
+      } 
+
+      if (!data.vote_count) {
+        data.vote_count = 'N/A';
+      } 
+
+      if (!data.genres) {
+        data.genres = 'genres unknown';
+      } 
+
+      if (!data.overview) {
+        data.overview = 'No description';
+      } 
+
+
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
-      <use href="./images/svg/symbol-defs.svg#icon-close"></use>
+      <use href="${refs.hrefIcon}"></use>
     </svg>
   </button>
-  <img class="modal__img-wrapper" src="${BASE_POSTER_URL}${
+  <img class="modal__img-wrapper" src="${
         data.poster_path
-      }" alt="${data.original_title}">
+      }" alt="${data.title}">
   <div class="modal__info">
-    <p class="modal__title">${data.original_title}</p>
+    <p class="modal__title">${data.title}</p>
     <div class="modal__data">
         <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average.toFixed(
           1
@@ -203,7 +241,7 @@ function fullFilmInfo(e) {
           1
         )}</span></p>
         <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${
-          data.original_title
+          data.title
         }</span></p>
         <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres
           .map(genre => genre.name)
@@ -214,12 +252,14 @@ function fullFilmInfo(e) {
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons">
-        <button class="modal__button" type="button">ADD TO WATCHED</button>
-        <button class="modal__button" type="button">ADD TO QUEUE</button>
+        <button class="modal__button" type="button" data-value="watched">ADD TO WATCHED</button>
+        <button class="modal__button" type="button" data-value="queue">ADD TO QUEUE</button>
     </div>
   </div>
   `;
       refs.modalFilm.insertAdjacentHTML('beforeend', filmInfo);
       refs.modalFilm.classList.remove('is-hidden');
-    });
+      const btnCloseModal = refs.modalFilm.getElementsByClassName('button-close')[0];
+      btnCloseModal.addEventListener('click', closeModalByBtn)
+    })
 }
