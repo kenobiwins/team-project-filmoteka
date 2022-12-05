@@ -14,7 +14,7 @@ const BASE_URL = 'https://api.themoviedb.org/3/';
 async function getPopularMovies(page = 1) {
   try {
     const response = await axios.get(
-      `${BASE_URL}/trending/movie/week?api_key=${API_KEY}&page=${page}`
+      `${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=${page}`
     );
     if (!response.status) {
       throw new Error('No trending films anymore');
