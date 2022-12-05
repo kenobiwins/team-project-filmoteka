@@ -1,14 +1,25 @@
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 500;
 
   // color: var(--text-color);
 }
+
+// main {
+//   height: 100%;
+//   flex: 1 1 auto;
+// }
 
 section {
   padding: 20px 0;
