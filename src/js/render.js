@@ -17,13 +17,13 @@ const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
 // const galleryRef = document.querySelector('.films-list');
-const formRef = document.querySelector('.page-header__form');
+// const formRef = document.querySelector('.page-header__form');
 // const inputRef = document.querySelector('.page-header__input');
-const errorSearchRef = document.querySelector('.page-header__error-text');
+// const errorSearchRef = document.querySelector('.page-header__error-text');
 // let searchQuery = '';
 let page = 1;
 
-formRef.addEventListener('submit', onFormSubmit);
+refs.form.addEventListener('submit', onFormSubmit);
 
 //--------------------RENDER POPULAR MOVIES-----------------
 window.addEventListener('DOMContentLoaded', () => {
@@ -49,9 +49,9 @@ function onFormSubmit(e) {
   if (searchQuery != '') {
     searchMovies(searchQuery.value.trim(), page).then(data => {
       if (data.data.results.length === 0) {
-        errorSearchRef.classList.remove('is-hidden');
+        refs.errorSearchRef.classList.remove('is-hidden');
         setTimeout(() => {
-          errorSearchRef.classList.add('is-hidden');
+          refs.errorSearchRef.classList.add('is-hidden');
         }, 5000);
 
         searchQuery.value = '';
@@ -60,6 +60,7 @@ function onFormSubmit(e) {
         page = 1;
         galleryMarkup(createGalery(data));
 
+        pagination(data.data.page, data.data.total_pages);
         refs.pagination.removeEventListener('click', paginationTrendMovie);
         refs.pagination.addEventListener('click', paginationOnSearch);
       }

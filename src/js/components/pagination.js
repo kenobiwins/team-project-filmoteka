@@ -73,8 +73,8 @@ export async function paginationTrendMovie(e) {
 
   if (target.dataset.action === 'next') {
     PAGE += 1;
+
     const response = await getPopularMovies(PAGE);
-    // insertMarkup(refs.mainContainer, await renderCards(response.data));
     refs.galleryHome.innerHTML = createGalery(response);
     pagination(response.data.page, response.data.total_pages);
 
@@ -82,8 +82,8 @@ export async function paginationTrendMovie(e) {
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
+
     const response = await getPopularMovies(PAGE);
-    // insertMarkup(refs.mainContainer, await renderCards(response.data));
     refs.galleryHome.innerHTML = createGalery(response);
     pagination(response.data.page, response.data.total_pages);
 
@@ -91,7 +91,6 @@ export async function paginationTrendMovie(e) {
   }
   PAGE = Number(target.textContent);
   const response = await getPopularMovies(PAGE);
-  //   insertMarkup(refs.mainContainer, await renderCards(response.data));
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
 }
@@ -105,7 +104,6 @@ export async function paginationOnSearch(e) {
   if (target.dataset.action === 'next') {
     PAGE += 1;
     const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-    // insertMarkup(refs.mainContainer, await renderCards(response.data));
     refs.galleryHome.innerHTML = createGalery(response);
     pagination(response.data.page, response.data.total_pages);
     return;
@@ -113,14 +111,12 @@ export async function paginationOnSearch(e) {
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
     const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-    // insertMarkup(refs.mainContainer, await renderCards(response.data));
     refs.galleryHome.innerHTML = createGalery(response);
     pagination(response.data.page, response.data.total_pages);
     return;
   }
   PAGE = Number(target.textContent);
   const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-  //   insertMarkup(refs.mainContainer, await renderCards(response.data));
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
 }
