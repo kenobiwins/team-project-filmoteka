@@ -42,7 +42,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 //--------------------RENDER GALLERY BY SEARCH-----------------
 function onFormSubmit(e) {
-  preload();
   e.preventDefault();
   const {
     currentTarget: { searchQuery },
@@ -52,10 +51,12 @@ function onFormSubmit(e) {
   if (!searchQuery.value) {
     return;
   }
+  preload();
   if (searchQuery != '') {
     searchMovies(searchQuery.value.trim(), page).then(data => {
       if (data.data.results.length === 0) {
         refs.errorSearchRef.classList.remove('is-hidden');
+        preload();
         setTimeout(() => {
           refs.errorSearchRef.classList.add('is-hidden');
         }, 5000);
@@ -64,6 +65,7 @@ function onFormSubmit(e) {
       } else {
         clearGallery();
         page = 1;
+
         galleryMarkup(createGalery(data));
 
         pagination(data.data.page, data.data.total_pages);
@@ -169,7 +171,6 @@ refs.modalFilm.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalByEsc);
 
 function closeModal(e) {
-  preload();
   if (e.target === refs.modalFilm) {
     refs.modalFilm.classList.add('is-hidden');
     document.querySelector('body').style.overflow = 'auto';
@@ -234,7 +235,7 @@ function fullFilmInfo(e) {
       if (!data.overview) {
         data.overview = 'No description';
       }
-
+      preload();
       console.log(data.genres);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>

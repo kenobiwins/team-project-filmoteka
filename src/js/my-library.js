@@ -1,4 +1,6 @@
 import { refs } from './refs/refs';
+import { preload } from './helpers/preloader';
+window.onload = preload();
 
 refs.btnWatched.addEventListener('click', onBtnWatched);
 refs.btnQueue.addEventListener('click', onBtnQueue);
