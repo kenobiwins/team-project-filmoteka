@@ -6,15 +6,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
   height: 520px;
-  overflow: auto;
+  overflow-y: auto;
   background-color: #252b42;
   @media screen and (min-width: 768px) {
     width: 768px;
-    height: 1024px;
   }
   @media screen and (min-width: 1280px) {
     width: 1200px;
-    height: 900px;
   }
 }
 
@@ -118,6 +116,11 @@
   }
 }
 
+.team__list {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
 @media screen and (min-width: 768px) {
   .team__list {
     margin-left: 50px;
@@ -131,5 +134,23 @@
 @media screen and (min-width: 1280px) {
   .team__list {
     margin-left: 20px;
+  }
+}
+
+.team-modal__button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  fill: yellow;
+  //   opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  &:hover,
+  &:focus {
+    background-color: #ff6b01;
   }
 }
