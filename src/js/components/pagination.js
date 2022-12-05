@@ -5,11 +5,13 @@ import { smoothScrollUp } from './scroll-up';
 
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
+let PAGE = 1;
+
 export function pagination(page, pages) {
   let markup = '';
 
   PAGE = page;
-  PAGES = pages;
+  const PAGES = pages;
   const beforeTwoPage = page - 2;
   const beforeOnePage = page - 1;
   const afterOnePage = page + 1;
