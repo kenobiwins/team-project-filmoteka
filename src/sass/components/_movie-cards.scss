@@ -1,24 +1,21 @@
 .films-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  // flex-direction: column;
-
+  display: grid;
   gap: 20px;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(1, 1fr);
 
-  @media screen and (min-width: 768px) {
-    // flex-direction: row;
-    // flex-wrap: wrap;
-    flex-basis: 50%;
+  @include mq(tablet) {
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
   }
 
-  @media screen and (min-width: 1280px) {
+  @include mq(desktop) {
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
 
   &__item {
-    flex-basis: 100%;
+    // flex-basis: 100%;
 
     // flex-basis: calc((100% - 32px) / 2);
 
@@ -27,18 +24,18 @@
 
     &:hover,
     &:focus {
-      display: block;
+      // display: block;
       transform: scale(1.015);
       box-shadow: 4px 3px 12px -1px rgb(255 107 8 / 50%);
     }
 
-    @media screen and (min-width: 768px) {
-      flex-basis: 45%;
-    }
-    @media screen and (min-width: 1280px) {
-      flex-basis: 32%;
-      // flex-basis: calc((100% - 32px) / 3);
-    }
+    // @media screen and (min-width: 768px) {
+    //   // flex-basis: 45%;
+    // }
+    // @media screen and (min-width: 1280px) {
+    //   // flex-basis: 32%;
+    //   // flex-basis: calc((100% - 32px) / 3);
+    // }
   }
 
   &__img {

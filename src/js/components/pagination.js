@@ -104,20 +104,23 @@ export async function paginationOnSearch(e) {
   }
   if (target.dataset.action === 'next') {
     PAGE += 1;
-    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+    const response = await searchMovies(refs.form.searchQuery.value, PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
-    // pagination(response.data.page, response.data.total_pages);
+    refs.galleryHome.innerHTML = createGalery(response);
+    pagination(response.data.page, response.data.total_pages);
     return;
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
-    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+    const response = await searchMovies(refs.form.searchQuery.value, PAGE);
     // insertMarkup(refs.mainContainer, await renderCards(response.data));
-    // pagination(response.data.page, response.data.total_pages);
+    refs.galleryHome.innerHTML = createGalery(response);
+    pagination(response.data.page, response.data.total_pages);
     return;
   }
   PAGE = Number(target.textContent);
-  // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+  const response = await searchMovies(refs.form.searchQuery.value, PAGE);
   //   insertMarkup(refs.mainContainer, await renderCards(response.data));
-  //   pagination(response.data.page, response.data.total_pages);
+  refs.galleryHome.innerHTML = createGalery(response);
+  pagination(response.data.page, response.data.total_pages);
 }

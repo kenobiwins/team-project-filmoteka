@@ -6,7 +6,11 @@ import {
   getTrailerById,
 } from './API/API';
 
-import { pagination, paginationTrendMovie } from './components/pagination';
+import {
+  pagination,
+  paginationTrendMovie,
+  paginationOnSearch,
+} from './components/pagination';
 import { refs } from './refs/refs';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
@@ -25,7 +29,7 @@ formRef.addEventListener('submit', onFormSubmit);
 window.addEventListener('DOMContentLoaded', () => {
   getPopularMovies(page).then(data => {
     galleryMarkup(createGalery(data));
-    console.log(data.data);
+
     pagination(data.data.page, data.data.total_pages);
     refs.pagination.addEventListener('click', paginationTrendMovie);
   });
@@ -55,6 +59,9 @@ function onFormSubmit(e) {
         clearGallery();
         page = 1;
         galleryMarkup(createGalery(data));
+
+        refs.pagination.removeEventListener('click', paginationTrendMovie);
+        refs.pagination.addEventListener('click', paginationOnSearch);
       }
     });
   }
