@@ -4,6 +4,9 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100%;
 
   font-family: 'Roboto', sans-serif;
@@ -13,9 +16,10 @@ body {
   // color: var(--text-color);
 }
 
-main {
-  min-height: 100%;
-}
+// main {
+//   height: 100%;
+//   flex: 1 1 auto;
+// }
 
 section {
   padding: 20px 0;
