@@ -32,26 +32,30 @@
   position: absolute;
   left: 50%;
   top: 20px;
+  max-height: 95%;
   transform: translate(-50%, 0);
-  overflow: auto;
+  box-shadow: 4px 3px 12px -1px #ff6b0880;
 
   @include mq(mobile) {
     flex-direction: column;
     gap: 20px;
     padding: 40px 20px;
-
   }
   @include mq(tablet) {
     width: 704px;
     top: 219px;
     padding: 40px 72px 40px 36px;
     gap: 68px;
+    max-height: 50%;
+
   }
   @include mq(desktop) {
     width: 806px;
     top: 150px;
     padding: 40px 12px;
     gap: 16px;
+    max-height: 80%;
+
   }
 }
 
@@ -73,6 +77,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @include mq(mobile) {
+    width: 240px;
+  }
+  @include mq(tablet) {
+    width: 264px;
+
+  }
+  @include mq(desktop) {
+    width: 375px;
+  }
 }
 
 .modal__title {
@@ -116,10 +130,20 @@
   flex-direction: column;
   gap: 8px;
   @include fonts(12px, 16px, 500);
-  margin-bottom: 8px;
 }
+
 .modal__description-about {
   @include fonts(12px, 20px, 500);
+  overflow-y: auto;
+  max-height: 80px;
+
+  @include mq(tablet) {
+    max-height: 95px;
+  }
+
+  @include mq(desktop) {
+    max-height: 320px;
+  }
 }
 
 .button-close {
