@@ -203,20 +203,30 @@ function fullFilmInfo(e) {
 
       if (!data.vote_average) {
         data.vote_average = 'N/A';
+      } else {
+        data.vote_average = String(data.vote_average).slice(0, 3);
       }
 
       if (!data.vote_count) {
         data.vote_count = 'N/A';
       }
 
-      if (!data.genres) {
-        data.genres = 'genres unknown';
+      if (!data.popularity) {
+        data.popularity = 'N/A';
       }
+
+      if (!data.genres.length) {
+        data.genres = 'genres unknown';
+      } else {
+        data.genres = data.genres
+        .map(genre => genre.name)
+        .join(', ')}
 
       if (!data.overview) {
         data.overview = 'No description';
       }
 
+      console.log(data.genres)
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
@@ -227,18 +237,12 @@ function fullFilmInfo(e) {
   <div class="modal__info">
     <p class="modal__title">${data.title}</p>
     <div class="modal__data">
-        <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average.toFixed(
-          1
-        )}</span>/ ${data.vote_count}</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Popularity</span><span class="modal__data-number">${data.popularity.toFixed(
-          1
-        )}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average}</span>/ ${data.vote_count}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Popularity</span><span class="modal__data-number">${data.popularity}</span></p>
         <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${
           data.title
         }</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres
-          .map(genre => genre.name)
-          .join(', ')}</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres}</span></p>
     </div>
     <div class="modal__description">
         <p class="modal__description-title">About</p>
@@ -252,8 +256,7 @@ function fullFilmInfo(e) {
   `;
       refs.modalFilm.insertAdjacentHTML('beforeend', filmInfo);
       refs.modalFilm.classList.remove('is-hidden');
-      const btnCloseModal =
-        refs.modalFilm.getElementsByClassName('button-close')[0];
+      const btnCloseModal = refs.modalFilm.getElementsByClassName('button-close')[0];
       btnCloseModal.addEventListener('click', closeModalByBtn);
     });
 }
