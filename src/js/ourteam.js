@@ -1,23 +1,30 @@
-(() => {
-  const refs = {
-    openModalBtn: document.querySelector('.footer__link'),
-    closeModalBtn: document.querySelector('.team-modal__button'),
-    modal: document.querySelector('.js-team__modal'),
-  };
+const refs = {
+  openModalBtn: document.querySelector('.footer__link'),
+  closeModalBtn: document.querySelector('.team-modal__button'),
+  modal: document.querySelector('.js-team__modal'),
+};
 
-  refs.openModalBtn.addEventListener('click', toggleModal);
-  refs.closeModalBtn.addEventListener('click', toggleModal);
-  refs.modal.addEventListener('click', onBackdroplick);
+refs.openModalBtn.addEventListener('click', onOpenModal);
+refs.closeModalBtn.addEventListener('click', onCloseModal);
+refs.modal.addEventListener('click', onBackdroplick);
 
-  function toggleModal() {
-    refs.modal.classList.toggle('is-hidden');
+function onOpenModal() {
+  window.addEventListener('keydown', onEscCloseModal);
+  refs.modal.classList.remove('is-hidden');
+}
+function onCloseModal() {
+  refs.modal.classList.add('is-hidden');
+}
+function onBackdroplick(evt) {
+  if (evt.currentTarget === evt.target) {
+    onCloseModal();
   }
+}
 
-  function onBackdroplick(evt) {
-    if (evt.currentTarget === evt.target) {
-      toggleModal();
-      refs.modal.removeEventListener('click', onBackdroplick);
-    }
+function onEscCloseModal(e) {
+  const KEY_CODE = 'Escape';
+  if (e.code === KEY_CODE) {
+    onCloseModal();
   }
-})();
+}
 // console.log(refs);
