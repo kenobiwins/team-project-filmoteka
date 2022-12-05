@@ -1,97 +1,74 @@
-// import { save, load, remove } from './localStorageAPI/localstorage';
-
-// let fetch = {};
-// const watched = localStorage.getItem(`allWatchedMovies`);
-// const queue = localStorage.getItem(`allQueueMovies`);
-
-// export const allWatched = watched ? JSON.parse(watched) : [];
-// export const allQueue = queue ? JSON.parse(queue) : [];
-
-//   const addWatchedBtn = document.querySelector("selector for btn-watched");
-//   const addQueuedBtn = document.querySelector("selector - .btn-queue");
-
-//   addWatchedBtn.addEventListener("click", onAddWatchedClick);
-//   addQueuedBtn.addEventListener("click", onAddQueueClick);
-
-
-// function updateWatchedText(id) {
-//     // const activeBtn = document.querySelector('selector for btn-watched');
-//     const savedId = load("allWatchedMovies");
-//     if (savedId) {
-//         const userAuth = savedId.find(movie => movie.id === id);
-//     if (userAuth) {
-//         // activeBtn.classList.add("add class - 'is-active'")
-//         activeBtn.textContent = "Remove from watched"
-//     }
-//     }
-// }
-
-// function onAddWatchedClick(event) {
-//     // const currentActiveBtn = document.querySelector("selector btn-watched.is-active");
-//     const savedLocalInfo = load("allWatchedMovies");
-//     // event.currentTarget.classList.toggle("is-active");
-
-//     if (currentActiveBtn) {
-//         let index;
-//         savedLocalInfo.forEach(({ id }, i) => (id === fetch.id ? (index = i) : i));
-//         allWatched.splice(index, 1);
-//         save(`allWatchedMovies`, allWatched);
-//     }
- 
-//     const isInArray = savedLocalInfo
-//     ? savedLocalInfo.find(({ id }) => id === fetch.id)
-//     : false;
+import {
+    toggleWatched,
+    toggleQueue,
+    isMovieWatched,
+    isMovieQueued,
+    loadWatchedMovies,
+    loadQueuedMovies,
+} from './libraryBtn';
   
-//     event.currentTarget.textContent = "add to Watched";
+import { refs } from './refs';
 
-//     if (!!isInArray) {
-//     return;
-//     }
-
-//     event.currentTarget.textContent = "Remove from watched";
-//     allWatched.push(fetch);
-//     save(`allWatchedMovies`, allWatched);
-// }
-
-//     
-
-// function updateQueueText(id) {
-// //   const activeBtn = document.querySelector('selector - .btn-queue');
-//     const savedId = load("allQueueMovies");
-//     if (savedId) {
-//         const userAuth = savedId.find(movie => movie.id === id);
-//     if (userAuth) {
-//         // activeBtn.classList.add("add class - is-active")
-//         activeBtn.textContent = "remove from queue"
-//     }
-//     }
-
-// }
-
-// function onAddQueueClick(event) {
-// //   const currentActiveBtn = document.querySelector("selector - .btn-queue.is-active");
-//     const savedLocalInfo = load("allQueueMovies");
-//     // event.currentTarget.classList.toggle("is-active");
-
-//     if (currentActiveBtn) {
-//         let index;
-//         savedLocalInfo.forEach(({ id }, i) => (id === fetch.id ? (index = i) : i));
-//         allQueue.splice(index, 1);
-//         save(`allQueueMovies`, allQueue);
-//     }
-
-//     const isInArray = savedLocalInfo
-//     ? savedLocalInfo.find(({ id }) => id === fetch.id)
-//     : false;
+const refs = {
+    libraryMovieList:document.querySelector('.library'),
+}
   
-//     event.currentTarget.textContent = "add to Queue";
+const refsBtn = {
+    addWatchedBtn: null,
+    addQueueBtn: null,
+};
+  
+function updateWatchedBtnTextContent(movieId) {
+    if (isMovieWatched(movieId)) {
+        refsBtn.addWatchedBtn.textContent = 'Remove from watched';
+        refsBtn.addWatchedBtn.classList.add('active');
+    } else {
+        refsBtn.addWatchedBtn.textContent = 'Add to watched';
+        refsBtn.addWatchedBtn.classList.remove('active');
+    }
+}
+  
+function updateQueuedBtnTextContent(movieId) {
+    if (isMovieQueued(movieId)) {
+        refsBtn.addQueueBtn.textContent = 'Remove from queued';
+        refsBtn.addQueueBtn.classList.add('active');
+    } else {
+        refsBtn.addQueueBtn.textContent = 'Add to queued';
+        refsBtn.addQueueBtn.classList.remove('active');
+    }
+}
+  
+export function setupModalButtons(movie) {
+    refsBtn.addWatchedBtn = document.querySelector('#btn-addwatched');
+    refsBtn.addQueueBtn = document.querySelector('#btn-addqueue');
 
-//     if (!!isInArray) {
-//     return;
-//     }
+    refsBtn.addWatchedBtn.addEventListener('click', () => {
+        toggleWatched(movie);
+        updateWatchedBtnTextContent(id);
+  
+        if (
+        !refs.libraryMovieList ||
+        !refs.btnWatched.classList.value.includes('modal__button--active')
+        ) {
+        return;
+        }
+  
+    loadWatchedMovies();
+    });
 
-//     event.currentTarget.textContent = "Remove from Queue";
-//     allQueue.push(fetch);
-//     save(`allQueueMovies`, allQueue);
-// }
+    refsBtn.addQueueBtn.addEventListener('click', () => {
+        toggleQueue(movie);
+        updateQueuedBtnTextContent(id);
+  
+        if (
+        !refs.libraryMovieList ||
+        !refs.btnQueue.classList.value.includes('modal__button--active')
+        ) {
+        return;
+        }
+    loadQueuedMovies();
+    });
 
+    updateWatchedBtnTextContent(id);
+    updateQueuedBtnTextContent(id);
+}

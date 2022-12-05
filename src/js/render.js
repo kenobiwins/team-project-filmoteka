@@ -171,7 +171,7 @@ function closeModalByEsc(e) {
   }
 }
 
-function fullFilmInfo(e) {
+export function fullFilmInfo(e) {
   e.preventDefault();
   const filmId = e.target.closest('li').dataset.id;
   modalFilm.innerHTML = '';
@@ -211,8 +211,8 @@ function fullFilmInfo(e) {
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons">
-        <button class="modal__button" type="button">ADD TO WATCHED</button>
-        <button class="modal__button" type="button">ADD TO QUEUE</button>
+        <button class="modal__button" type="button" id="btn-addwatched">ADD TO WATCHED</button>
+        <button class="modal__button" type="button" id="btn-addqueue">ADD TO QUEUE</button>
     </div>
   </div>
   `;
