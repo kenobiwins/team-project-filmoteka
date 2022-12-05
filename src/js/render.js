@@ -85,7 +85,7 @@ export function createGalery(data) {
   return data.data.results
     .map(
       ({ poster_path, title, release_date, genre_ids, vote_average, id }) => {
-        genresArray = [];
+        let genresArray = [];
         let filmGenres = '';
         genres.map(genre => {
           if (genre_ids.includes(genre['id'])) {
@@ -155,13 +155,11 @@ function clearGallery() {
 
 // const modalFilm = document.querySelector('.backdrop');
 
-
 //--------------------RENDER FILM-MODAL BY CLICK-----------------
 
 refs.galleryHome.addEventListener('click', fullFilmInfo);
 refs.modalFilm.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalByEsc);
-
 
 function closeModal(e) {
   if (e.target === refs.modalFilm) {
@@ -188,13 +186,11 @@ function fullFilmInfo(e) {
   const filmId = e.target.closest('li').dataset.id;
   refs.modalFilm.removeChild(refs.modalFilm.lastElementChild);
 
-
   getMovieById(filmId)
     .then(data => {
       return data.data;
     })
     .then(data => {
-      
       if (!data.poster_path) {
         data.poster_path = FAKE_POSTER;
       } else {
@@ -203,24 +199,23 @@ function fullFilmInfo(e) {
 
       if (!data.title) {
         title = 'no name';
-      } 
+      }
 
       if (!data.vote_average) {
         data.vote_average = 'N/A';
-      } 
+      }
 
       if (!data.vote_count) {
         data.vote_count = 'N/A';
-      } 
+      }
 
       if (!data.genres) {
         data.genres = 'genres unknown';
-      } 
+      }
 
       if (!data.overview) {
         data.overview = 'No description';
-      } 
-
+      }
 
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
@@ -228,9 +223,7 @@ function fullFilmInfo(e) {
       <use href="${refs.hrefIcon}"></use>
     </svg>
   </button>
-  <img class="modal__img-wrapper" src="${
-        data.poster_path
-      }" alt="${data.title}">
+  <img class="modal__img-wrapper" src="${data.poster_path}" alt="${data.title}">
   <div class="modal__info">
     <p class="modal__title">${data.title}</p>
     <div class="modal__data">
@@ -259,7 +252,8 @@ function fullFilmInfo(e) {
   `;
       refs.modalFilm.insertAdjacentHTML('beforeend', filmInfo);
       refs.modalFilm.classList.remove('is-hidden');
-      const btnCloseModal = refs.modalFilm.getElementsByClassName('button-close')[0];
-      btnCloseModal.addEventListener('click', closeModalByBtn)
-    })
+      const btnCloseModal =
+        refs.modalFilm.getElementsByClassName('button-close')[0];
+      btnCloseModal.addEventListener('click', closeModalByBtn);
+    });
 }
