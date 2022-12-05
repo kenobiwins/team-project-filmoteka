@@ -1,6 +1,8 @@
 import { getPopularMovies, searchMovies } from '../API/API';
 import { createGalery } from '../render';
 import { refs } from '../refs/refs';
+import { smoothScrollUp } from './scroll-up';
+
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
 export function pagination(page, pages) {
@@ -64,59 +66,84 @@ export function pagination(page, pages) {
   refs.pagination.innerHTML = markup;
 }
 
+const getPopularByPage = async page => {
+  // loader
+  const response = await getPopularMovies(page);
+  refs.galleryHome.innerHTML = createGalery(response);
+  pagination(response.data.page, response.data.total_pages);
+  // Loader remove
+  smoothScrollUp();
+  return;
+};
+
 export async function paginationTrendMovie(e) {
   const { target, currentTarget } = e;
 
-  if (target === currentTarget || target === '...') {
+  if (target === currentTarget || target.textContent === '...') {
     return;
   }
 
   if (target.dataset.action === 'next') {
     PAGE += 1;
 
-    const response = await getPopularMovies(PAGE);
-    refs.galleryHome.innerHTML = createGalery(response);
-    pagination(response.data.page, response.data.total_pages);
+    getPopularByPage(PAGE);
+    // const response = await getPopularMovies(PAGE);
+    // refs.galleryHome.innerHTML = createGalery(response);
+    // pagination(response.data.page, response.data.total_pages);
 
     return;
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
-
-    const response = await getPopularMovies(PAGE);
-    refs.galleryHome.innerHTML = createGalery(response);
-    pagination(response.data.page, response.data.total_pages);
+    getPopularByPage(PAGE);
+    // const response = await getPopularMovies(PAGE);
+    // refs.galleryHome.innerHTML = createGalery(response);
+    // pagination(response.data.page, response.data.total_pages);
 
     return;
   }
   PAGE = Number(target.textContent);
-  const response = await getPopularMovies(PAGE);
+  getPopularByPage(PAGE);
+  // const response = await getPopularMovies(PAGE);
+  // refs.galleryHome.innerHTML = createGalery(response);
+  // pagination(response.data.page, response.data.total_pages);
+}
+
+const getBySearchPage = async page => {
+  // Loader
+  const response = await searchMovies(refs.form.searchQuery.value, PAGE);
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
-}
+  // Loader remove
+  smoothScrollUp();
+  return;
+};
 
 export async function paginationOnSearch(e) {
   const { target, currentTarget } = e;
 
-  if (target === currentTarget || target === '...') {
+  if (target === currentTarget || target.textContent === '...') {
     return;
   }
   if (target.dataset.action === 'next') {
     PAGE += 1;
-    const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-    refs.galleryHome.innerHTML = createGalery(response);
-    pagination(response.data.page, response.data.total_pages);
+    getBySearchPage(PAGE);
+    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+    // refs.galleryHome.innerHTML = createGalery(response);
+    // pagination(response.data.page, response.data.total_pages);
     return;
   }
   if (target.dataset.action === 'prev') {
     PAGE -= 1;
-    const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-    refs.galleryHome.innerHTML = createGalery(response);
-    pagination(response.data.page, response.data.total_pages);
+    getBySearchPage(PAGE);
+    // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+    // refs.galleryHome.innerHTML = createGalery(response);
+    // pagination(response.data.page, response.data.total_pages);
     return;
   }
   PAGE = Number(target.textContent);
-  const response = await searchMovies(refs.form.searchQuery.value, PAGE);
-  refs.galleryHome.innerHTML = createGalery(response);
-  pagination(response.data.page, response.data.total_pages);
+  getBySearchPage(PAGE);
+  // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+  // refs.galleryHome.innerHTML = createGalery(response);
+  // pagination(response.data.page, response.data.total_pages);
 }
