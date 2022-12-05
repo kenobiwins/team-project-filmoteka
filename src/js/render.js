@@ -28,7 +28,9 @@ refs.form.addEventListener('submit', onFormSubmit);
 
 // preloader.classList.remove('visually-hidden');
 
-window.onload = preload();
+window.onload = setTimeout(() => {
+  preload();
+}, 1000);
 
 //--------------------RENDER POPULAR MOVIES-----------------
 window.addEventListener('DOMContentLoaded', () => {
@@ -71,7 +73,9 @@ function onFormSubmit(e) {
         pagination(data.data.page, data.data.total_pages);
         refs.pagination.removeEventListener('click', paginationTrendMovie);
         refs.pagination.addEventListener('click', paginationOnSearch);
-        preload();
+        setTimeout(() => {
+          preload();
+        }, 1000);
       }
     });
   }
