@@ -8,4 +8,5 @@ const refs = {
   galleryHome: document.querySelector('.films-list'),
   filmsList: document.querySelector('.films-list'),
   errorSearchRef: document.querySelector('.page-header__error-text'),
+  modalFilm: document.querySelector('.backdrop'),
 };

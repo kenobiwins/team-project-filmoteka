@@ -81,6 +81,7 @@ getGenresList().then(array => {
 const genres = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
 export function createGalery(data) {
+  // console.log(data);
   return data.data.results
     .map(
       ({
@@ -159,22 +160,22 @@ function clearGallery() {
 
 // console.log(getTrailerById(436270));
 
-const modalFilm = document.querySelector('.backdrop');
+// const modalFilm = document.querySelector('.backdrop');
 
 refs.galleryHome.addEventListener('click', fullFilmInfo);
-modalFilm.addEventListener('click', closeModal);
+refs.modalFilm.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalByEsc);
 
 function closeModal(e) {
-  if (e.target === modalFilm) {
-    modalFilm.classList.add('is-hidden');
+  if (e.target === refs.modalFilm) {
+    refs.modalFilm.classList.add('is-hidden');
     // modalFilm.removeEventListener('click', closeModal)
   }
 }
 
 function closeModalByEsc(e) {
   if (e.code === 'Escape') {
-    modalFilm.classList.add('is-hidden');
+    refs.modalFilm.classList.add('is-hidden');
     // window.removeEventListener('keydown', closeModalByEsc)
   }
 }
@@ -182,7 +183,8 @@ function closeModalByEsc(e) {
 function fullFilmInfo(e) {
   e.preventDefault();
   const filmId = e.target.closest('li').dataset.id;
-  modalFilm.innerHTML = '';
+  // console.log(filmId);
+  refs.modalFilm.innerHTML = '';
 
   getMovieById(filmId)
     .then(data => {
@@ -224,7 +226,7 @@ function fullFilmInfo(e) {
     </div>
   </div>
   `;
-      modalFilm.insertAdjacentHTML('beforeend', filmInfo);
-      modalFilm.classList.remove('is-hidden');
+      refs.modalFilm.insertAdjacentHTML('beforeend', filmInfo);
+      refs.modalFilm.classList.remove('is-hidden');
     });
 }
