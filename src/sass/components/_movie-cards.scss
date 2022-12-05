@@ -61,7 +61,7 @@
     line-height: 1.1667;
     text-transform: uppercase;
 
-    color: map-get($colorPool, 'black');
+    // color: map-get($colorPool, 'black');
 
     @media screen and (min-width: 768px) {
       max-width: 336px;
