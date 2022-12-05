@@ -9,5 +9,6 @@ const refs = {
   filmsList: document.querySelector('.films-list'),
   errorSearchRef: document.querySelector('.page-header__error-text'),
   modalFilm: document.querySelector('.backdrop'),
-  hrefIcon: document.querySelector('.button-close-img').getAttribute('href'), /* звідси беру вже зібране парселом посилання */
+  hrefIcon: document.querySelector('.button-close-img').getAttribute('href'),
+  /* звідси беру вже зібране парселом посилання */
 };
