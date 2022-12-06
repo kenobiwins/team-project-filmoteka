@@ -12,6 +12,7 @@ import {
   paginationOnSearch,
 } from './components/pagination';
 import { refs } from './refs/refs';
+import { preload } from './helpers/preloader';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
@@ -26,14 +27,24 @@ let page = 1;
 
 refs.form.addEventListener('submit', onFormSubmit);
 
+// preloader.classList.remove('visually-hidden');
+
+// window.onload = setTimeout(() => {
+//   preload();
+// }, 1000);
+
 //--------------------RENDER POPULAR MOVIES-----------------
 window.addEventListener('DOMContentLoaded', () => {
+  preload();
   getPopularMovies(page).then(data => {
     galleryMarkup(createGalery(data));
 
     pagination(data.data.page, data.data.total_pages);
     refs.pagination.addEventListener('click', paginationTrendMovie);
   });
+  setTimeout(() => {
+    preload();
+  }, 700);
 });
 
 //--------------------RENDER GALLERY BY SEARCH-----------------
@@ -47,10 +58,12 @@ function onFormSubmit(e) {
   if (!searchQuery.value) {
     return;
   }
+  preload();
   if (searchQuery != '') {
     searchMovies(searchQuery.value.trim(), page).then(data => {
       if (data.data.results.length === 0) {
         refs.errorSearchRef.classList.remove('is-hidden');
+        preload();
         setTimeout(() => {
           refs.errorSearchRef.classList.add('is-hidden');
         }, 5000);
@@ -59,11 +72,15 @@ function onFormSubmit(e) {
       } else {
         clearGallery();
         page = 1;
+
         galleryMarkup(createGalery(data));
 
         pagination(data.data.page, data.data.total_pages);
         refs.pagination.removeEventListener('click', paginationTrendMovie);
         refs.pagination.addEventListener('click', paginationOnSearch);
+        setTimeout(() => {
+          preload();
+        }, 700);
       }
     });
   }
@@ -82,7 +99,7 @@ getGenresList().then(array => {
 const genres = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
 export function createGalery(data) {
-  console.log(data);
+  // console.log(data);
   return data.data.results
     .map(
       ({ poster_path, title, release_date, genre_ids, vote_average, id }) => {
@@ -182,6 +199,8 @@ function closeModalByBtn() {
 }
 
 function fullFilmInfo(e) {
+  preload();
+  fullFilmInfo;
   e.preventDefault();
   document.querySelector('body').style.overflow = 'hidden';
   const filmId = e.target.closest('li').dataset.id;
@@ -219,15 +238,16 @@ function fullFilmInfo(e) {
       if (!data.genres.length) {
         data.genres = 'genres unknown';
       } else {
-        data.genres = data.genres
-        .map(genre => genre.name)
-        .join(', ')}
+        data.genres = data.genres.map(genre => genre.name).join(', ');
+      }
 
       if (!data.overview) {
         data.overview = 'No description';
       }
-
-      console.log(data.genres)
+      setTimeout(() => {
+        preload();
+      }, 100);
+      console.log(data.genres);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
@@ -240,9 +260,7 @@ function fullFilmInfo(e) {
     <div class="modal__data">
         <p class="modal__data-info"><span class="modal__data-info--grey">Vote / Votes</span><span class="modal__data-number"><span class="modal__data-ratio">${data.vote_average}</span>/ ${data.vote_count}</span></p>
         <p class="modal__data-info"><span class="modal__data-info--grey">Popularity</span><span class="modal__data-number">${data.popularity}</span></p>
-        <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${
-          data.title
-        }</span></p>
+        <p class="modal__data-info"><span class="modal__data-info--grey">Original Title</span><span>${data.title}</span></p>
         <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres}</span></p>
     </div>
     <div class="modal__description">
@@ -257,7 +275,8 @@ function fullFilmInfo(e) {
   `;
       refs.modalFilm.insertAdjacentHTML('beforeend', filmInfo);
       refs.modalFilm.classList.remove('is-hidden');
-      const btnCloseModal = refs.modalFilm.getElementsByClassName('button-close')[0];
+      const btnCloseModal =
+        refs.modalFilm.getElementsByClassName('button-close')[0];
       btnCloseModal.addEventListener('click', closeModalByBtn);
       const btnTrailerModal = refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера

@@ -1,4 +1,8 @@
 import { refs } from './refs/refs';
+// import { preload } from './helpers/preloader';
+// window.onload = setTimeout(() => {
+//   preload();
+// }, 1000);
 
 refs.btnWatched.addEventListener('click', onBtnWatched);
 refs.btnQueue.addEventListener('click', onBtnQueue);
