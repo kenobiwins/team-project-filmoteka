@@ -14,14 +14,16 @@
   border-radius: 5px;
   padding: 13px 11px;
   @include fonts(12px, 16px);
-  color: map-get($colorPool, 'black');
+  // color: map-get($colorPool, 'black');
+  color: var(--close-color);
 
   transition: color var(--transition), background-color var(--transition);
 
   cursor: pointer;
 
   &[data-action] {
-    background-color: map-get($colorPool, 'gray-light');
+    // background-color: map-get($colorPool, 'gray-light');
+    background-color: var(--pagination-arrow-btn);
   }
 
   &:hover,

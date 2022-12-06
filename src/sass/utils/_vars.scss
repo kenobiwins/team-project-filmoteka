@@ -13,9 +13,12 @@ $colorPool: (
 
 :root {
   --main-text-color-black: #000;
-  
-    --dark-bg-color: #272e34;
-    --dark-text-color: #fff;
+  --bg-color: #fff;
+    --text-color: #123;
+    --close-color: #123;
+    --pagination-arrow-btn:#f7f7f7;
+    // --dark-bg-color: #272e34;
+    // --dark-text-color: #fff;
   
     // --main-text-color-orange:#ff6b08;
     // --secondary-text-color:#fff;
@@ -27,7 +30,9 @@ $colorPool: (
 //   --text-color: #123;
 // }
 
-// :root.dark {
-//   --bg-color: #272e34;
-//   --text-color: #fff;
-// }
+:root.dark {
+  --bg-color: #272e34;
+  --text-color: #fff;
+    --close-color: #fff;
+    --pagination-arrow-btn:#8c8c8c;
+}

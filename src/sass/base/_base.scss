@@ -24,7 +24,7 @@ body {
 section {
   padding: 20px 0;
   background-color: var(--bg-color);
-
+color: var(--text-color);
   @include mq(tablet) {
     padding: 60px 0;
   }
