@@ -1,10 +1,13 @@
 .footer{
-    background-color:map-get($colorPool, 'gray-light');
+background-color: var(--bg-color);
     padding-top: 30px;
     padding-bottom: 30px;
 
     text-align: center;
     
+}
+.footer-color{
+    background-color: map-get($colorPool, 'gray-light');
 }
 .footer__text{
     color: map-get($colorPool, 'text');
