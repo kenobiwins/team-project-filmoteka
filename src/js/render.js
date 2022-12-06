@@ -16,6 +16,7 @@ import { refs } from './refs/refs';
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
+const TRAILER_BTN_IMG ='https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg'
 // const galleryRef = document.querySelector('.films-list');
 // const formRef = document.querySelector('.page-header__form');
 // const inputRef = document.querySelector('.page-header__input');
@@ -245,7 +246,7 @@ function fullFilmInfo(e) {
         <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres}</span></p>
     </div>
     <div class="modal__description">
-        <p class="modal__description-title">About</p>
+        <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="trailer"><img class="modal__button-play-wrapper" src="${TRAILER_BTN_IMG}" alt="trailer"></button></p>
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons">
@@ -258,5 +259,7 @@ function fullFilmInfo(e) {
       refs.modalFilm.classList.remove('is-hidden');
       const btnCloseModal = refs.modalFilm.getElementsByClassName('button-close')[0];
       btnCloseModal.addEventListener('click', closeModalByBtn);
+      const btnTrailerModal = refs.modalFilm.getElementsByClassName('modal__button-play')[0];
+      // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
     });
 }
