@@ -10,10 +10,12 @@ refs.modal.addEventListener('click', onBackdroplick);
 
 function onOpenModal() {
   window.addEventListener('keydown', onEscCloseModal);
+  document.body.style.overflow = 'hidden';
   refs.modal.classList.remove('is-hidden');
 }
 function onCloseModal() {
   refs.modal.classList.add('is-hidden');
+  document.body.style.overflow = 'auto';
 }
 function onBackdroplick(evt) {
   if (evt.currentTarget === evt.target) {

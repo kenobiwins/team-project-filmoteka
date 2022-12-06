@@ -7,7 +7,8 @@
   transform: translate(-50%, -50%);
   height: 520px;
   overflow-y: auto;
-  background-color: #252b42;
+  // background-color: #252b42;
+  background-color: rgba(185, 100, 255, 0.5);
   @media screen and (min-width: 768px) {
     width: 768px;
   }
@@ -29,7 +30,11 @@
   line-height: 1.17;
   text-align: center;
   letter-spacing: 0.03em;
-  color: #ff6b01;
+  color: #ff0101;
+  text-shadow: 1px -1px 0 #767676, -1px 2px 1px hsl(0, 0%, 45%),
+    -2px 4px 1px #767474, -3px 6px 1px #151313, -4px 8px 1px #7b7a7a,
+    -5px 10px 1px #f08d0c, -6px 12px 1px #0c0b0b, -7px 14px 1px #e71717;
+
   @media screen and (min-width: 768px) {
     margin-top: 15px;
     margin-bottom: 20px;
@@ -46,6 +51,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 
   @media screen and (min-width: 768px) {
     width: 300px;
@@ -141,7 +147,7 @@
   position: absolute;
   right: 20px;
   top: 20px;
-  fill: yellow;
+  fill: rgb(255, 255, 128);
   //   opacity: 0;
   display: flex;
   align-items: center;
