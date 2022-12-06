@@ -2,6 +2,7 @@ import { getPopularMovies, searchMovies } from '../API/API';
 import { createGalery } from '../render';
 import { refs } from '../refs/refs';
 import { smoothScrollUp } from './scroll-up';
+import { preload } from '../helpers/preloader';
 
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
@@ -74,10 +75,14 @@ export function pagination(page, pages) {
 
 const getPopularByPage = async page => {
   // loader
+  preload();
   const response = await getPopularMovies(page);
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
   // Loader remove
+  setTimeout(() => {
+    preload();
+  }, 700);
   smoothScrollUp();
   return;
 };
@@ -117,10 +122,14 @@ export async function paginationTrendMovie(e) {
 
 const getBySearchPage = async page => {
   // Loader
+  preload();
   const response = await searchMovies(refs.form.searchQuery.value, PAGE);
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
   // Loader remove
+  setTimeout(() => {
+    preload();
+  }, 700);
   smoothScrollUp();
   return;
 };
