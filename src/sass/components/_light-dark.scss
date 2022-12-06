@@ -1,20 +1,25 @@
 .theme{
     position: fixed;
-    top: 50px;
+    top: 70px;
     right: 20px;
-    // background-color:white;
+    background-color:transparent;
     padding: 4px;
-    // padding-bottom: 0;
     border-radius: 20%;
-    border: solid 2px green;
+    border: none;
     display: flex;
     cursor: pointer;
+    z-index: 1;
+    &:hover,
+        &:focus {
+            background-color: map-get($colorPool, 'orange');
+        }
 }
 .lightTheme__icon{
     position: absolute;
     
-    fill: yellow;
-    stroke: yellow;
+    fill: white;
+    stroke: white;
+ 
 }
 .lightTheme__icon.is-darkTheme{
     opacity: 0;
@@ -23,14 +28,8 @@
 .darkTheme__icon{
     fill: blue;
     stroke: blue;
-    // background-color: blue;
-    
+
 }
 .darkTheme__icon.is-lightTheme{
     opacity: 0;
-}
-
-.dark{
-    background-color:var(--dark-bg-color);
-    color:var(--dark-text-color);
 }

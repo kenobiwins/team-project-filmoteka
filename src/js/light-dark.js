@@ -4,11 +4,28 @@ const darkIcon = document.querySelector('.darkTheme__icon');
 const html = document.querySelector('html');
 const footerChange = document.querySelector('.footer');
 
-toggleSwitch.addEventListener('click', switchTheme);
+toggleSwitch.addEventListener('click', setTheme);
+let savedTheme = '';
+window.addEventListener('load', rememberDarkForLib);
 
+function setTheme() {
+  switchTheme();
+  localStorage.setItem('ui-theme', html.classList.value);
+}
 function switchTheme() {
   html.classList.toggle('dark');
   lightIcon.classList.toggle('is-darkTheme');
   darkIcon.classList.toggle('is-lightTheme');
   footerChange.classList.toggle('footer-color');
+}
+
+function rememberDarkForLib(e) {
+  savedTheme = localStorage.getItem('ui-theme');
+  console.log(savedTheme);
+
+  if (savedTheme !== 'dark') {
+    return;
+  } else {
+    switchTheme();
+  }
 }
