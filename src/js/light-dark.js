@@ -4,11 +4,9 @@ const darkIcon = document.querySelector('.darkTheme__icon');
 const html = document.querySelector('html');
 const footerChange = document.querySelector('.footer');
 
-const darkLibrary = document.querySelector('.site-nav__link');
 toggleSwitch.addEventListener('click', setTheme);
 let savedTheme = '';
 window.addEventListener('load', rememberDarkForLib);
-// darkLibrary.addEventListener('click', rememberDarkForLib);
 
 function setTheme() {
   switchTheme();
