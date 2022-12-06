@@ -19,6 +19,9 @@ export function pagination(page, pages) {
   // &#129144;<
   // &#129146;>
   // '/symbol-defs.31a6e949.svg#icon'
+  // <svg width="16px" height="16px">
+  //   <use href="/symbol-defs.31a6e949.svg#icon-arrow"></use>
+  // </svg>;
   if (page > 1) {
     if (mqMoreThanMobile) {
       markup += `<li class='pagination__item' data-action='prev'>&#129144;</li>`;
