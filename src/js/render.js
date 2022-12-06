@@ -28,18 +28,22 @@ refs.form.addEventListener('submit', onFormSubmit);
 
 // preloader.classList.remove('visually-hidden');
 
-window.onload = setTimeout(() => {
-  preload();
-}, 1000);
+// window.onload = setTimeout(() => {
+//   preload();
+// }, 1000);
 
 //--------------------RENDER POPULAR MOVIES-----------------
 window.addEventListener('DOMContentLoaded', () => {
+  preload();
   getPopularMovies(page).then(data => {
     galleryMarkup(createGalery(data));
 
     pagination(data.data.page, data.data.total_pages);
     refs.pagination.addEventListener('click', paginationTrendMovie);
   });
+  setTimeout(() => {
+    preload();
+  }, 700);
 });
 
 //--------------------RENDER GALLERY BY SEARCH-----------------
@@ -75,7 +79,7 @@ function onFormSubmit(e) {
         refs.pagination.addEventListener('click', paginationOnSearch);
         setTimeout(() => {
           preload();
-        }, 1000);
+        }, 700);
       }
     });
   }
@@ -239,7 +243,9 @@ function fullFilmInfo(e) {
       if (!data.overview) {
         data.overview = 'No description';
       }
-      preload();
+      setTimeout(() => {
+        preload();
+      }, 100);
       console.log(data.genres);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
