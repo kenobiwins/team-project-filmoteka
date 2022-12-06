@@ -17,13 +17,15 @@ import { preload } from './helpers/preloader';
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
-const TRAILER_BTN_IMG ='https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg'
+const TRAILER_BTN_IMG =
+  'https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg';
 // const galleryRef = document.querySelector('.films-list');
 // const formRef = document.querySelector('.page-header__form');
 // const inputRef = document.querySelector('.page-header__input');
 // const errorSearchRef = document.querySelector('.page-header__error-text');
 // let searchQuery = '';
 let page = 1;
+let genres = [];
 
 refs.form.addEventListener('submit', onFormSubmit);
 
@@ -34,8 +36,13 @@ refs.form.addEventListener('submit', onFormSubmit);
 // }, 1000);
 
 //--------------------RENDER POPULAR MOVIES-----------------
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   preload();
+  await getGenresList().then(array => {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
+  });
+  genres = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
   getPopularMovies(page).then(data => {
     galleryMarkup(createGalery(data));
 
@@ -92,11 +99,6 @@ function onFormSubmit(e) {
   //   }
   // e.currentTarget.reset();
 }
-
-getGenresList().then(array => {
-  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
-});
-const genres = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
 export function createGalery(data) {
   // console.log(data);
@@ -278,7 +280,8 @@ function fullFilmInfo(e) {
       const btnCloseModal =
         refs.modalFilm.getElementsByClassName('button-close')[0];
       btnCloseModal.addEventListener('click', closeModalByBtn);
-      const btnTrailerModal = refs.modalFilm.getElementsByClassName('modal__button-play')[0];
+      const btnTrailerModal =
+        refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
     });
 }
