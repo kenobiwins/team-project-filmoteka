@@ -14,8 +14,8 @@
   border-radius: 5px;
   padding: 13px 11px;
   @include fonts(12px, 16px);
-  color: map-get($colorPool, 'black');
-
+  // color: map-get($colorPool, 'black');
+color: var(--text-color);
   transition: color var(--transition), background-color var(--transition);
 
   cursor: pointer;
