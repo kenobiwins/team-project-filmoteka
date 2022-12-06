@@ -18,6 +18,7 @@ export function pagination(page, pages) {
   const afterTwoPage = page + 2;
   // &#129144;<
   // &#129146;>
+  // '/symbol-defs.31a6e949.svg#icon'
   if (page > 1) {
     if (mqMoreThanMobile) {
       markup += `<li class='pagination__item' data-action='prev'>&#129144;</li>`;
