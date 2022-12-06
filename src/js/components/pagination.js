@@ -118,10 +118,14 @@ export async function paginationTrendMovie(e) {
 
 const getBySearchPage = async page => {
   // Loader
+  preload();
   const response = await searchMovies(refs.form.searchQuery.value, PAGE);
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
   // Loader remove
+  setTimeout(() => {
+    preload();
+  }, 700);
   smoothScrollUp();
   return;
 };
