@@ -21,7 +21,8 @@
   cursor: pointer;
 
   &[data-action] {
-    background-color: map-get($colorPool, 'gray-light');
+    // background-color: map-get($colorPool, 'gray-light');
+    background-color: var(--pagination-arrow-btn);
   }
 
   &:hover,
