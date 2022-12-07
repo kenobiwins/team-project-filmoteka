@@ -14,15 +14,16 @@ $colorPool: (
 :root {
   --main-text-color-black: #000;
   --bg-color: #fff;
-    --text-color: #123;
-    --close-color: #123;
-    --pagination-arrow-btn:#f7f7f7;
-    // --dark-bg-color: #272e34;
-    // --dark-text-color: #fff;
-  
-    // --main-text-color-orange:#ff6b08;
-    // --secondary-text-color:#fff;
-    // --light-bg-color:#fff;
+  --text-color: #123;
+  --close-color: #123;
+  --pagination-arrow-btn: #f7f7f7;
+  --card-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.51);
+  // --dark-bg-color: #272e34;
+  // --dark-text-color: #fff;
+
+  // --main-text-color-orange:#ff6b08;
+  // --secondary-text-color:#fff;
+  // --light-bg-color:#fff;
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 // :root.light {
@@ -33,6 +34,7 @@ $colorPool: (
 :root.dark {
   --bg-color: #272e34;
   --text-color: #fff;
-    --close-color: #fff;
-    --pagination-arrow-btn:#8c8c8c;
+  --close-color: #fff;
+  --pagination-arrow-btn: #8c8c8c;
+  --card-shadow: 2px 2px 25px 2px #cccccc40;
 }

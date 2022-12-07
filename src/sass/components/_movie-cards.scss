@@ -25,8 +25,8 @@
     &:hover,
     &:focus {
       // display: block;
-      transform: scale(1.015);
-      box-shadow: 4px 3px 12px -1px rgb(255 107 8 / 50%);
+      transform: scale(1.035);
+      box-shadow: 2px 2px 3px 3px rgb(255 107 8 / 50%);
     }
 
     // @media screen and (min-width: 768px) {
@@ -40,7 +40,12 @@
 
   &__img {
     // max-width: 280px;
+    background-color: map-get($colorPool, 'grey');
+    box-shadow: var(--card-shadow);
 
+    &__img .dark {
+      box-shadow: 2px 2px 25px 2px #cccccc40;
+    }
     @media screen and (min-width: 768px) {
       // max-width: 336px;
       height: 455px;
@@ -60,7 +65,7 @@
     font-size: 12px;
     line-height: 1.1667;
     text-transform: uppercase;
-color: var(--text-color);
+    color: var(--text-color);
     // color: map-get($colorPool, 'black');
 
     @media screen and (min-width: 768px) {
@@ -75,10 +80,24 @@ color: var(--text-color);
     }
   }
 
+  &__text-rating {
+    font-size: 12px;
+    line-height: 1.17;
+    vertical-align: middle;
+
+    color: map-get($colorPool, 'white');
+    background-color: map-get($colorPool, 'orange');
+    border-radius: 5px;
+    padding: 1px 9px;
+    @media screen and (min-width: 1280px) {
+      padding: 3px 11px;
+      vertical-align: text-top;
+    }
+  }
+
   &__text-ganres,
   &__span,
-  &__text-date,
-  &__text-rating {
+  &__text-date {
     font-family: 'Roboto';
     font-size: 12px;
     font-weight: 500;
