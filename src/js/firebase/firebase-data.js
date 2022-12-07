@@ -37,6 +37,7 @@ if (document.title === 'My library') {
     } else {
       return;
     }
+    getWatchedCollection();
   });
 
   //  loader start
@@ -45,6 +46,7 @@ if (document.title === 'My library') {
   // get collection data queue
   refs.getQueueDataBtn.addEventListener('click', getQueueCollection);
   // loader remove
+
   return;
 } else {
   return;
