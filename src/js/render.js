@@ -79,35 +79,36 @@ function onFormSubmit(e) {
   // Loading.circle();
   // let searchQuery = inputRef.value.trim();
   if (!searchQuery.value) {
+    Notiflix.Notify.info(`Please enter request`);
     return;
   }
   preload();
-  if (searchQuery != '') {
-    searchMovies(searchQuery.value.trim(), page).then(data => {
-      if (data.data.results.length === 0) {
-        refs.errorSearchRef.classList.remove('is-hidden');
+  // if (searchQuery != '') {
+  searchMovies(searchQuery.value.trim(), page).then(data => {
+    if (data.data.results.length === 0) {
+      refs.errorSearchRef.classList.remove('is-hidden');
+      preload();
+      setTimeout(() => {
+        refs.errorSearchRef.classList.add('is-hidden');
+      }, 5000);
+
+      searchQuery.value = '';
+    } else {
+      localStorage.setItem(LOCALSTORAGE_TRUESEARCH, searchQuery.value);
+      clearGallery();
+      page = 1;
+
+      galleryMarkup(createGalery(data));
+
+      pagination(data.data.page, data.data.total_pages);
+      refs.pagination.removeEventListener('click', paginationTrendMovie);
+      refs.pagination.addEventListener('click', paginationOnSearch);
+      setTimeout(() => {
         preload();
-        setTimeout(() => {
-          refs.errorSearchRef.classList.add('is-hidden');
-        }, 5000);
-
-        searchQuery.value = '';
-      } else {
-        localStorage.setItem(LOCALSTORAGE_TRUESEARCH, searchQuery.value);
-        clearGallery();
-        page = 1;
-
-        galleryMarkup(createGalery(data));
-
-        pagination(data.data.page, data.data.total_pages);
-        refs.pagination.removeEventListener('click', paginationTrendMovie);
-        refs.pagination.addEventListener('click', paginationOnSearch);
-        setTimeout(() => {
-          preload();
-        }, 700);
-      }
-    });
-  }
+      }, 700);
+    }
+  });
+  // }
   //   else {
   //     clearGallery();
   //     getPopularMovies(page).then(data => {
