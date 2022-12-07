@@ -30,7 +30,7 @@ onAuthStateChanged(auth, user => {
 });
 
 if (document.title === 'My library') {
-  window.addEventListener('DOMContentLoaded', getWatchedCollection);
+  // window.addEventListener('DOMContentLoaded', getWatchedCollection);
   //  loader start
   // get collection data watched
   refs.getWatchedDataBtn.addEventListener('click', getWatchedCollection);
@@ -45,11 +45,11 @@ if (document.title === 'My library') {
 function getWatchedCollection(e) {
   // Notiflix.Loading.standard();
 
-  refs.getQueueDataBtn.classList.contains('button--active')
-    ? refs.getQueueDataBtn.classList.remove('button--active')
-    : null;
+  // refs.getQueueDataBtn.classList.contains('button--active')
+  //   ? refs.getQueueDataBtn.classList.remove('button--active')
+  //   : null;
 
-  refs.getWatchedDataBtn.classList.add('button--active');
+  // refs.getWatchedDataBtn.classList.add('button--active');
 
   getDocs(colRefWatched)
     .then(async snapshot => {
@@ -79,11 +79,11 @@ function getWatchedCollection(e) {
 function getQueueCollection(e) {
   // Notiflix.Loading.standard();
 
-  refs.getWatchedDataBtn.classList.contains('button--active')
-    ? refs.getWatchedDataBtn.classList.remove('button--active')
-    : null;
+  // refs.getWatchedDataBtn.classList.contains('button--active')
+  //   ? refs.getWatchedDataBtn.classList.remove('button--active')
+  //   : null;
 
-  refs.getQueueDataBtn.classList.add('button--active');
+  // refs.getQueueDataBtn.classList.add('button--active');
 
   getDocs(colRefQueue)
     .then(async snapshot => {
@@ -120,6 +120,7 @@ function renderByFirebase(data) {
         genre_ids = "haven't genres",
         vote_average,
         name,
+        release_date,
         id,
         baseId,
       },
@@ -137,19 +138,34 @@ function renderByFirebase(data) {
       } else {
         poster_path = 'https://image.tmdb.org/t/p/w500/' + poster_path;
       }
-      acc += `<li class="movie-card"  data-id='${id}' firebase-id="${baseId}">
-  <img src='${poster_path}' loading='lazy'/>
-  <h3 class="movie-card__name">${title || name}</h3>
-  <p class="movie-card__genres">
-    ${
-      // genres.length === 0 ? "haven't genre" : genres.join(', ')
-      'genres'
-    }
-     <span class="movie-card__ratio">${
-       vote_average ? vote_average : "haven't ratio"
-     }</span>
-  </p>
-</li>`;
+      //       acc += `<li class="films-list__item" data-id="${id}" firebase-id="${baseId}">
+      //   <a href="" class="films-list__link">
+      //     <img
+      //       src="${poster_path}"
+      //       alt="${title}"
+      //       class="films-list__img"
+      //       loading="lazy"
+      //     />
+      //     <h2 class="films-list__title">${title}</h2>
+      //     <span class="films-list__text-ganres">${genre_ids}</span>
+      //     <span class="films-list__span">|</span>
+      //     <span class="films-list__text-date">${release_date}|</span>
+      //     <span class="films-list__text-rating">${vote_average}</span>
+      //   </a>
+      // </li>`;
+      acc += `<li class="films-list__item"  data-id='${id}' firebase-id="${baseId}">
+        <img src='${poster_path}' loading='lazy'/>
+        <h3 class="movie-card__name">${title || name}</h3>
+        <p class="movie-card__genres">
+          ${
+            // genres.length === 0 ? "haven't genre" : genres.join(', ')
+            'genres'
+          }
+           <span class="movie-card__ratio">${
+             vote_average ? vote_average : "haven't ratio"
+           }</span>
+        </p>
+      </li>`;
       return acc;
     },
     ''

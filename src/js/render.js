@@ -408,7 +408,7 @@ function handleSaveData(e) {
 function saveData(collectionRef, data) {
   console.log(collectionRef);
   Notiflix.Notify.success(
-    `Movie has saved to ${collectionRef._path.segments[0]}`
+    `Movie has saved to ${collectionRef._path.segments[1]}`
   );
   addDoc(collectionRef, data);
 }
