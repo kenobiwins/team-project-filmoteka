@@ -5,7 +5,17 @@ import {
   getGenresList,
   getTrailerById,
 } from './API/API';
-
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import {
+  addToQueue,
+  addToWatched,
+  colRefQueue,
+  colRefWatched,
+  handleWatched,
+  deleteQueue,
+  deleteWatched,
+} from './firebase/firebase-data';
+import Notiflix from 'notiflix';
 import {
   pagination,
   paginationTrendMovie,
@@ -15,7 +25,7 @@ import { refs } from './refs/refs';
 import { preload } from './helpers/preloader';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
-const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
+export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
 const LOCALSTORAGE_TRUESEARCH = 'trueSearch';
 const TRAILER_BTN_IMG =
@@ -28,8 +38,10 @@ const TRAILER_BTN_IMG =
 let page = 1;
 let genres = [];
 let trueSearch = '';
-
-refs.form.addEventListener('submit', onFormSubmit);
+let dataVar = {};
+if (document.title === 'Home') {
+  refs.form.addEventListener('submit', onFormSubmit);
+}
 
 // preloader.classList.remove('visually-hidden');
 
@@ -38,23 +50,25 @@ refs.form.addEventListener('submit', onFormSubmit);
 // }, 1000);
 
 //--------------------RENDER POPULAR MOVIES-----------------
-window.addEventListener('DOMContentLoaded', async () => {
-  preload();
-  await getGenresList().then(array => {
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
-  });
-  genres = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-
-  getPopularMovies(page).then(data => {
-    galleryMarkup(createGalery(data));
-
-    pagination(data.data.page, data.data.total_pages);
-    refs.pagination.addEventListener('click', paginationTrendMovie);
-  });
-  setTimeout(() => {
+if (document.title === 'Home') {
+  window.addEventListener('DOMContentLoaded', async () => {
     preload();
-  }, 700);
-});
+    await getGenresList().then(array => {
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
+    });
+    genres = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+
+    getPopularMovies(page).then(data => {
+      galleryMarkup(createGalery(data));
+
+      pagination(data.data.page, data.data.total_pages);
+      refs.pagination.addEventListener('click', paginationTrendMovie);
+    });
+    setTimeout(() => {
+      preload();
+    }, 700);
+  });
+}
 
 //--------------------RENDER GALLERY BY SEARCH-----------------
 function onFormSubmit(e) {
@@ -180,11 +194,13 @@ function clearGallery() {
 
 //--------------------RENDER FILM-MODAL BY CLICK-----------------
 
-refs.galleryHome.addEventListener('click', fullFilmInfo);
-refs.modalFilm.addEventListener('click', closeModal);
-window.addEventListener('keydown', closeModalByEsc);
+if (document.title === 'Home') {
+  refs.galleryHome.addEventListener('click', fullFilmInfo);
+  refs.modalFilm.addEventListener('click', closeModal);
+  window.addEventListener('keydown', closeModalByEsc);
+}
 
-function closeModal(e) {
+export function closeModal(e) {
   if (e.target === refs.modalFilm) {
     refs.modalFilm.classList.add('is-hidden');
     document.querySelector('body').style.overflow = 'auto';
@@ -203,12 +219,13 @@ function closeModalByBtn() {
   document.querySelector('body').style.overflow = 'auto';
 }
 
-function fullFilmInfo(e) {
+export function fullFilmInfo(e) {
   preload();
   fullFilmInfo;
   e.preventDefault();
   document.querySelector('body').style.overflow = 'hidden';
   const filmId = e.target.closest('li').dataset.id;
+  const firebaseId = e.target.closest('li').getAttribute('firebase-id');
   refs.modalFilm.removeChild(refs.modalFilm.lastElementChild);
 
   getMovieById(filmId)
@@ -252,7 +269,9 @@ function fullFilmInfo(e) {
       setTimeout(() => {
         preload();
       }, 100);
-      console.log(data.genres);
+      // console.log(data.genres);
+      dataVar = data;
+      // console.log(dataVar);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
@@ -272,9 +291,9 @@ function fullFilmInfo(e) {
         <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="trailer"><img class="modal__button-play-wrapper" src="${TRAILER_BTN_IMG}" alt="trailer"></button></p>
         <p class="modal__description-about">${data.overview}</p>
     </div>
-    <div class="modal__buttons">
-        <button class="modal__button" type="button" data-value="watched">ADD TO WATCHED</button>
-        <button class="modal__button" type="button" data-value="queue">ADD TO QUEUE</button>
+    <div class="modal__buttons" >
+        <button class="modal__button modal__button--watched" type="button" data-value="watched">ADD TO WATCHED</button>
+        <button class="modal__button modal__button--queue" type="button" data-value="queue">ADD TO QUEUE</button>
     </div>
   </div>
   `;
@@ -286,7 +305,110 @@ function fullFilmInfo(e) {
       const btnTrailerModal =
         refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
+      const buttonsWrapper =
+        refs.modalFilm.getElementsByClassName('modal__buttons')[0];
+      buttonsWrapper.setAttribute('firebase-id', firebaseId);
+      const addQueueBtn = refs.modalFilm.getElementsByClassName(
+        'modal__button--queue'
+      )[0];
+      const addWatchedBtn = refs.modalFilm.getElementsByClassName(
+        'modal__button--watched'
+      )[0];
+
+      if (document.title === 'My library') {
+        buttonsWrapper.removeEventListener('click', handleSaveData);
+        addQueueBtn.addEventListener('click', deleteQueue);
+        addWatchedBtn.addEventListener('click', deleteWatched);
+        getDocs(colRefWatched).then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            const data = [doc.data()].some(el => {
+              return el['id'] === Number(filmId);
+            });
+            if (data) {
+              // console.log(addWatchedBtn);
+              addWatchedBtn.classList.remove('visually-hidden');
+              addWatchedBtn.textContent = 'Remove from Watched';
+              addQueueBtn.classList.add('visually-hidden');
+              return;
+            }
+            // ? (addWatchedBtn.textContent = 'Remove from Watched')
+            // : null;
+          });
+        });
+
+        getDocs(colRefQueue).then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            const data = [doc.data()].some(el => {
+              return el['id'] === Number(filmId);
+            });
+            // console.log(data);
+            if (data) {
+              // console.log(addQueueBtn);
+              addQueueBtn.classList.remove('visually-hidden');
+              addQueueBtn.textContent = 'Remove from Queue';
+              addWatchedBtn.classList.add('visually-hidden');
+              return;
+            }
+            // ? (addQueueBtn.textContent = 'Remove from Queue')
+            // : null;
+          });
+        });
+      } else if (document.title === 'Home') {
+        buttonsWrapper.addEventListener('click', handleSaveData);
+
+        getDocs(colRefWatched).then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            [doc.data()].some(el => {
+              return el['id'] === Number(filmId);
+            })
+              ? addWatchedBtn.setAttribute('disabled', '')
+              : null;
+          });
+        });
+
+        getDocs(colRefQueue).then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            [doc.data()].some(el => {
+              return el['id'] === Number(filmId);
+            })
+              ? addQueueBtn.setAttribute('disabled', '')
+              : null;
+          });
+        });
+      }
     });
 }
 
-console.log(trueSearch);
+// console.log(trueSearch);
+
+function handleSaveData(e) {
+  const { target, currentTarget } = e;
+  const addQueueBtn = refs.modalFilm.getElementsByClassName(
+    'modal__button--queue'
+  )[0];
+  const addWatchedBtn = refs.modalFilm.getElementsByClassName(
+    'modal__button--watched'
+  )[0];
+
+  if (target === currentTarget) {
+    return;
+  }
+  if (target === addQueueBtn) {
+    console.log(target);
+    saveData(colRefQueue, dataVar);
+    target.setAttribute('disabled', '');
+    return;
+  } else if (target === addWatchedBtn) {
+    saveData(colRefWatched, dataVar);
+    target.setAttribute('disabled', '');
+    return;
+  }
+}
+
+function saveData(collectionRef, data) {
+  console.log(collectionRef, data);
+  Notiflix.Notify.success(
+    `Movie has saved to ${collectionRef._path.segments[1]}`
+  );
+  addDoc(collectionRef, data);
+}

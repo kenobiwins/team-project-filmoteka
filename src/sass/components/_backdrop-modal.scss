@@ -27,7 +27,7 @@
   display: flex;
   padding: 40px 36px;
   width: 280px;
-background-color: var(--bg-color);
+  background-color: var(--bg-color);
   color: var(--text-color);
   // background-color: map-get($colorPool, 'white');
   position: absolute;
@@ -139,7 +139,6 @@ background-color: var(--bg-color);
   width: 40px;
   border: none;
   padding: 0;
-
 }
 
 .modal__description-about {
@@ -211,6 +210,9 @@ background-color: var(--bg-color);
     color: map-get($colorPool, 'white');
     border: 1px solid orange;
     background-color: map-get($colorPool, 'orange');
+  }
+  &:disabled {
+    background-color: gray;
   }
   @include mq(tablet) {
     width: 125px;

@@ -1,0 +1,42 @@
+<div class="backdrop is-hidden" data-value="sign-up">
+  <div class="modal register-form" data-value="sign-up">
+    <button
+      class="button-close"
+      type="button"
+      data-modal-close
+      data-value="sign-up"
+    >
+      <svg class="icon" width="14px" height="14px">
+        <use href="/src/images/svg/symbol-defs.svg#icon-close"></use>
+      </svg>
+    </button>
+    <form class="signup">
+      <h2>Register right now</h2>
+      <label for="email-registr">email</label>
+      <input type="email" id="email-registr" name="email" />
+      <label for="password-registr">password</label>
+      <input type="password" id="password-registr" name="password" />
+      <button class="button modal__button" type="submit">Sign up</button>
+    </form>
+    <form class="login" data-value="login">
+      <h2>Have account?</h2>
+      <label for="email-sign">email</label>
+      <input type="email" id="email-sign" name="email" />
+      <label for="password-sign">password</label>
+      <input type="password" id="password-sign" name="password" />
+      <button class="button modal__button" type="submit" data-action="login">
+        Log in
+      </button>
+      <button
+        class="button modal__button"
+        type="button"
+        data-action="login-with-google"
+      >
+        Log in with Google
+      </button>
+    </form>
+    <button class="button modal__button" type="button" data-action="logout">
+      Log out
+    </button>
+  </div>
+</div>
