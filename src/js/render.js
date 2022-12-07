@@ -327,44 +327,60 @@ export function fullFilmInfo(e) {
 
         addQueueBtn.addEventListener('click', deleteQueue);
         addWatchedBtn.addEventListener('click', deleteWatched);
+        if (refs.btnWatched.classList.contains('button--active')) {
+          console.log('watched');
+          getDocs(colRefWatched).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+              const data = [doc.data()].some(el => {
+                return el['id'] === Number(filmId);
+              });
+              // ? (addWatchedBtn.textContent = 'Remove from Watched')
+              // : null;
+              // return;
+              if (data) {
+                // console.log(addWatchedBtn);
+                addQueueBtn.style.display = 'none';
+                addWatchedBtn.style.display = 'block';
+                addWatchedBtn.textContent = 'Remove from Watched';
 
-        getDocs(colRefWatched).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? (addWatchedBtn.textContent = 'Remove from Watched')
-              : null;
-            // if (data) {
-            //   // console.log(addWatchedBtn);
-            //   addWatchedBtn.classList.remove('is-hidden');
-            //   addWatchedBtn.textContent = 'Remove from Watched';
-            //   addQueueBtn.classList.add('is-hidden');
-            //   return;
-            // }
-            //
+                return;
+              }
+              //  else {
+              //   addWatchedBtn.style.display = 'none';
+              //   addQueueBtn.style.display = 'block';
+              // }
+              //
+            });
           });
-        });
+        } else if (refs.btnQueue.classList.contains('button--active')) {
+          console.log('queue');
+          getDocs(colRefQueue).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+              const data = [doc.data()].some(el => {
+                return el['id'] === Number(filmId);
+              });
+              // ? (addQueueBtn.textContent = 'Remove from Queue')
+              // : null;
+              // return;
+              // console.log(data);
+              if (data) {
+                // console.log(addQueueBtn);
+                addWatchedBtn.style.display = 'none';
+                addQueueBtn.style.display = 'block';
+                addQueueBtn.textContent = 'Remove from Queue';
 
-        getDocs(colRefQueue).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? (addQueueBtn.textContent = 'Remove from Queue')
-              : null;
-            // console.log(data);
-            // if (data) {
-            //   // console.log(addQueueBtn);
-            //   addQueueBtn.classList.remove('is-hidden');
-            //   addQueueBtn.textContent = 'Remove from Queue';
-            //   addWatchedBtn.classList.add('is-hidden');
-            //   return;
-            // }
-            // ? (addQueueBtn.textContent = 'Remove from Queue')
-            // : null;
+                return;
+              }
+              //  else {
+              //   addQueueBtn.style.display = 'none';
+              //   addWatchedBtn.style.display = 'block';
+              //   return;
+              // }
+              // ? (addQueueBtn.textContent = 'Remove from Queue')
+              // : null;
+            });
           });
-        });
+        }
       } else if (document.title === 'Home') {
         onAuthStateChanged(auth, user => {
           if (user) {

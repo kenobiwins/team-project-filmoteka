@@ -108,9 +108,9 @@ function getQueueCollection(e) {
 
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
 
-      //   refs.addQueueBtn.classList.remove('visually-hidden');
-      //   refs.addQueueBtn.textContent = 'Delete from queue';
-      //   refs.addWatchedBtn.classList.add('visually-hidden');
+      // addQueueBtn.classList.remove('visually-hidden');
+      // addQueueBtn.textContent = 'Delete from queue';
+      // addWatchedBtn.classList.add('visually-hidden');
       refs.galleryLibrary.addEventListener('click', fullFilmInfo);
 
       //   refs.addQueueBtn.addEventListener('click', deleteQueue);
