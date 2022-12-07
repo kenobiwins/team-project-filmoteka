@@ -17,6 +17,7 @@ export function pagination(page, pages) {
   const beforeOnePage = page - 1;
   const afterOnePage = page + 1;
   const afterTwoPage = page + 2;
+
   // &#129144;<
   // &#129146;>
   // '/symbol-defs.31a6e949.svg#icon'
@@ -123,7 +124,9 @@ export async function paginationTrendMovie(e) {
 const getBySearchPage = async page => {
   // Loader
   preload();
-  const response = await searchMovies(refs.form.searchQuery.value, PAGE);
+
+  let trueSearch = localStorage.getItem('trueSearch');
+  const response = await searchMovies(trueSearch, PAGE);
   refs.galleryHome.innerHTML = createGalery(response);
   pagination(response.data.page, response.data.total_pages);
   // Loader remove
