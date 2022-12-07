@@ -1,11 +1,13 @@
+const html = document.querySelector('html');
 const toggleSwitch = document.querySelector('.theme');
 const lightIcon = document.querySelector('.lightTheme__icon');
 const darkIcon = document.querySelector('.darkTheme__icon');
-const html = document.querySelector('html');
 const footerChange = document.querySelector('.footer');
 
-toggleSwitch.addEventListener('click', setTheme);
 let savedTheme = '';
+
+toggleSwitch.addEventListener('click', setTheme);
+
 window.addEventListener('load', rememberDarkForLib);
 
 function setTheme() {
