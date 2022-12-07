@@ -6,6 +6,7 @@ import {
   getTrailerById,
 } from './API/API';
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { onBtnQueue, onBtnWatched } from './my-library';
 import {
   addToQueue,
   addToWatched,
@@ -23,6 +24,8 @@ import {
 } from './components/pagination';
 import { refs } from './refs/refs';
 import { preload } from './helpers/preloader';
+import { auth } from './firebase/firebase-auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
@@ -321,63 +324,75 @@ export function fullFilmInfo(e) {
 
       if (document.title === 'My library') {
         buttonsWrapper.removeEventListener('click', handleSaveData);
+
         addQueueBtn.addEventListener('click', deleteQueue);
         addWatchedBtn.addEventListener('click', deleteWatched);
+
         getDocs(colRefWatched).then(snapshot => {
           snapshot.docs.forEach(doc => {
-            const data = [doc.data()].some(el => {
+            [doc.data()].some(el => {
               return el['id'] === Number(filmId);
-            });
-            if (data) {
-              // console.log(addWatchedBtn);
-              addWatchedBtn.classList.remove('visually-hidden');
-              addWatchedBtn.textContent = 'Remove from Watched';
-              addQueueBtn.classList.add('visually-hidden');
-              return;
-            }
-            // ? (addWatchedBtn.textContent = 'Remove from Watched')
-            // : null;
+            })
+              ? (addWatchedBtn.textContent = 'Remove from Watched')
+              : null;
+            // if (data) {
+            //   // console.log(addWatchedBtn);
+            //   addWatchedBtn.classList.remove('is-hidden');
+            //   addWatchedBtn.textContent = 'Remove from Watched';
+            //   addQueueBtn.classList.add('is-hidden');
+            //   return;
+            // }
+            //
           });
         });
 
         getDocs(colRefQueue).then(snapshot => {
           snapshot.docs.forEach(doc => {
-            const data = [doc.data()].some(el => {
+            [doc.data()].some(el => {
               return el['id'] === Number(filmId);
-            });
+            })
+              ? (addQueueBtn.textContent = 'Remove from Queue')
+              : null;
             // console.log(data);
-            if (data) {
-              // console.log(addQueueBtn);
-              addQueueBtn.classList.remove('visually-hidden');
-              addQueueBtn.textContent = 'Remove from Queue';
-              addWatchedBtn.classList.add('visually-hidden');
-              return;
-            }
+            // if (data) {
+            //   // console.log(addQueueBtn);
+            //   addQueueBtn.classList.remove('is-hidden');
+            //   addQueueBtn.textContent = 'Remove from Queue';
+            //   addWatchedBtn.classList.add('is-hidden');
+            //   return;
+            // }
             // ? (addQueueBtn.textContent = 'Remove from Queue')
             // : null;
           });
         });
       } else if (document.title === 'Home') {
-        buttonsWrapper.addEventListener('click', handleSaveData);
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            buttonsWrapper.addEventListener('click', handleSaveData);
 
-        getDocs(colRefWatched).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? addWatchedBtn.setAttribute('disabled', '')
-              : null;
-          });
-        });
+            getDocs(colRefWatched).then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                [doc.data()].some(el => {
+                  return el['id'] === Number(filmId);
+                })
+                  ? addWatchedBtn.setAttribute('disabled', '')
+                  : null;
+              });
+            });
 
-        getDocs(colRefQueue).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? addQueueBtn.setAttribute('disabled', '')
-              : null;
-          });
+            getDocs(colRefQueue).then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                [doc.data()].some(el => {
+                  return el['id'] === Number(filmId);
+                })
+                  ? addQueueBtn.setAttribute('disabled', '')
+                  : null;
+              });
+            });
+          } else {
+            addQueueBtn.setAttribute('disabled', '');
+            addWatchedBtn.setAttribute('disabled', '');
+          }
         });
       }
     });
