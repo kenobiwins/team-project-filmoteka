@@ -21,7 +21,7 @@ function switchTheme() {
 
 function rememberDarkForLib(e) {
   savedTheme = localStorage.getItem('ui-theme');
-  console.log(savedTheme);
+  // console.log(savedTheme);
 
   if (savedTheme !== 'dark') {
     return;

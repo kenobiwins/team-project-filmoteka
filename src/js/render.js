@@ -397,7 +397,6 @@ function handleSaveData(e) {
     return;
   }
   if (target === addQueueBtn) {
-    console.log(target);
     saveData(colRefQueue, dataVar);
     target.setAttribute('disabled', '');
     return;
@@ -409,7 +408,7 @@ function handleSaveData(e) {
 }
 
 function saveData(collectionRef, data) {
-  console.log(collectionRef);
+  // console.log(collectionRef);
   Notiflix.Notify.success(
     `Movie has saved to ${collectionRef._path.segments[1]}`
   );
