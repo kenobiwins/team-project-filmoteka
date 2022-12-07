@@ -220,9 +220,12 @@ function closeModalByBtn() {
 }
 
 export function fullFilmInfo(e) {
-  preload();
-  fullFilmInfo;
   e.preventDefault();
+  fullFilmInfo;
+  if (e.target === e.currentTarget) {
+    return;
+  }
+  preload();
   document.querySelector('body').style.overflow = 'hidden';
   const filmId = e.target.closest('li').dataset.id;
   const firebaseId = e.target.closest('li').getAttribute('firebase-id');

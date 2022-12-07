@@ -23,14 +23,22 @@ onAuthStateChanged(auth, user => {
     USER_ID = user.uid;
     colRefWatched = collection(db, `${user.uid}/watched/movies/`);
     colRefQueue = collection(db, `${user.uid}/queue/movies/`);
-    return;
-  } else {
-    return;
   }
 });
 
 if (document.title === 'My library') {
-  // window.addEventListener('DOMContentLoaded', getWatchedCollection);
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      USER_ID = user.uid;
+      colRefWatched = collection(db, `${user.uid}/watched/movies/`);
+      colRefQueue = collection(db, `${user.uid}/queue/movies/`);
+
+      // getWatchedCollection();
+    } else {
+      return;
+    }
+  });
+
   //  loader start
   // get collection data watched
   refs.getWatchedDataBtn.addEventListener('click', getWatchedCollection);
@@ -42,7 +50,7 @@ if (document.title === 'My library') {
   return;
 }
 
-function getWatchedCollection(e) {
+async function getWatchedCollection(e) {
   // Notiflix.Loading.standard();
 
   // refs.getQueueDataBtn.classList.contains('button--active')
@@ -56,11 +64,11 @@ function getWatchedCollection(e) {
       return getData(snapshot);
     })
     .then(async data => {
-      console.log(data);
       // Notiflix.Loading.remove();
 
       if (data.length === 0) {
         showEmptyData('watched');
+        return;
       }
 
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
@@ -93,6 +101,7 @@ function getQueueCollection(e) {
       // Notiflix.Loading.remove();
       if (data.length === 0) {
         showEmptyData('queue');
+        return;
       }
 
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
@@ -184,9 +193,10 @@ function getData(snapshot) {
 function deleteData(path_to_folder, e) {
   // const { target } = e;
   const filmId = e.target.closest('div').getAttribute('firebase-id');
-  console.log(filmId);
+  // console.log(filmId);
   const docRef = doc(db, `${path_to_folder}`, filmId);
   deleteDoc(docRef);
+  document.body.style.overflow = 'auto';
 }
 
 function handleDeleteData(e, path_to_folder, coolectionRef) {
@@ -213,7 +223,7 @@ function deleteQueue(e) {
 }
 
 function deleteWatched(e) {
-  handleDeleteData(e, `${USER_ID}/watched/movies`, colRefWatched);
+  return handleDeleteData(e, `${USER_ID}/watched/movies`, colRefWatched);
 }
 
 function showEmptyData(name) {
@@ -226,4 +236,5 @@ export {
   deleteWatched,
   deleteQueue,
   handleDeleteData,
+  saveData,
 };
