@@ -17,6 +17,7 @@ import { preload } from './helpers/preloader';
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
+const LOCALSTORAGE_TRUESEARCH = 'trueSearch';
 const TRAILER_BTN_IMG =
   'https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg';
 // const galleryRef = document.querySelector('.films-list');
@@ -26,6 +27,7 @@ const TRAILER_BTN_IMG =
 // let searchQuery = '';
 let page = 1;
 let genres = [];
+let trueSearch = '';
 
 refs.form.addEventListener('submit', onFormSubmit);
 
@@ -77,6 +79,7 @@ function onFormSubmit(e) {
 
         searchQuery.value = '';
       } else {
+        localStorage.setItem(LOCALSTORAGE_TRUESEARCH, searchQuery.value);
         clearGallery();
         page = 1;
 
@@ -285,3 +288,5 @@ function fullFilmInfo(e) {
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
     });
 }
+
+console.log(trueSearch);
