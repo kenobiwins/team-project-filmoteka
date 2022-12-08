@@ -212,7 +212,15 @@
     background-color: map-get($colorPool, 'orange');
   }
   &:disabled {
-    background-color: gray;
+    background-color: map-get($colorPool, 'grey');
+    border-color: map-get($colorPool, 'grey');
+    color: map-get($colorPool, 'white');
+    cursor: auto;
+    &:hover,
+    &:focus {
+      background-color: map-get($colorPool, 'grey');
+      border-color: map-get($colorPool, 'grey');
+    }
   }
   @include mq(tablet) {
     width: 125px;

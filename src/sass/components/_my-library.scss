@@ -1,9 +1,22 @@
 .library {
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
+  display: grid;
+  gap: 20px;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(1, 1fr);
 
-  &__img {
-    width: 280px;
-    height: 350px;
+  @include mq(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  @include mq(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  & img {
+    height: 480px;
   }
 }

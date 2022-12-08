@@ -23,26 +23,36 @@ onAuthStateChanged(auth, user => {
     USER_ID = user.uid;
     colRefWatched = collection(db, `${user.uid}/watched/movies/`);
     colRefQueue = collection(db, `${user.uid}/queue/movies/`);
-    return;
-  } else {
-    return;
   }
 });
 
 if (document.title === 'My library') {
-  // window.addEventListener('DOMContentLoaded', getWatchedCollection);
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      USER_ID = user.uid;
+      colRefWatched = collection(db, `${user.uid}/watched/movies/`);
+      colRefQueue = collection(db, `${user.uid}/queue/movies/`);
+
+      // getWatchedCollection();
+    } else {
+      return;
+    }
+    getWatchedCollection();
+  });
+
   //  loader start
   // get collection data watched
   refs.getWatchedDataBtn.addEventListener('click', getWatchedCollection);
   // get collection data queue
   refs.getQueueDataBtn.addEventListener('click', getQueueCollection);
   // loader remove
+
   return;
 } else {
   return;
 }
 
-function getWatchedCollection(e) {
+async function getWatchedCollection(e) {
   // Notiflix.Loading.standard();
 
   // refs.getQueueDataBtn.classList.contains('button--active')
@@ -56,11 +66,11 @@ function getWatchedCollection(e) {
       return getData(snapshot);
     })
     .then(async data => {
-      console.log(data);
       // Notiflix.Loading.remove();
 
       if (data.length === 0) {
         showEmptyData('watched');
+        return;
       }
 
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
@@ -93,13 +103,14 @@ function getQueueCollection(e) {
       // Notiflix.Loading.remove();
       if (data.length === 0) {
         showEmptyData('queue');
+        return;
       }
 
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
 
-      //   refs.addQueueBtn.classList.remove('visually-hidden');
-      //   refs.addQueueBtn.textContent = 'Delete from queue';
-      //   refs.addWatchedBtn.classList.add('visually-hidden');
+      // addQueueBtn.classList.remove('visually-hidden');
+      // addQueueBtn.textContent = 'Delete from queue';
+      // addWatchedBtn.classList.add('visually-hidden');
       refs.galleryLibrary.addEventListener('click', fullFilmInfo);
 
       //   refs.addQueueBtn.addEventListener('click', deleteQueue);
@@ -184,9 +195,10 @@ function getData(snapshot) {
 function deleteData(path_to_folder, e) {
   // const { target } = e;
   const filmId = e.target.closest('div').getAttribute('firebase-id');
-  console.log(filmId);
+  // console.log(filmId);
   const docRef = doc(db, `${path_to_folder}`, filmId);
   deleteDoc(docRef);
+  document.body.style.overflow = 'auto';
 }
 
 function handleDeleteData(e, path_to_folder, coolectionRef) {
@@ -213,7 +225,7 @@ function deleteQueue(e) {
 }
 
 function deleteWatched(e) {
-  handleDeleteData(e, `${USER_ID}/watched/movies`, colRefWatched);
+  return handleDeleteData(e, `${USER_ID}/watched/movies`, colRefWatched);
 }
 
 function showEmptyData(name) {

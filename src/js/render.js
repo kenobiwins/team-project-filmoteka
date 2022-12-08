@@ -6,6 +6,7 @@ import {
   getTrailerById,
 } from './API/API';
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import { onBtnQueue, onBtnWatched } from './my-library';
 import {
   addToQueue,
   addToWatched,
@@ -23,6 +24,8 @@ import {
 } from './components/pagination';
 import { refs } from './refs/refs';
 import { preload } from './helpers/preloader';
+import { auth } from './firebase/firebase-auth';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
@@ -79,35 +82,36 @@ function onFormSubmit(e) {
   // Loading.circle();
   // let searchQuery = inputRef.value.trim();
   if (!searchQuery.value) {
+    Notiflix.Notify.info(`Please enter request`);
     return;
   }
   preload();
-  if (searchQuery != '') {
-    searchMovies(searchQuery.value.trim(), page).then(data => {
-      if (data.data.results.length === 0) {
-        refs.errorSearchRef.classList.remove('is-hidden');
+  // if (searchQuery != '') {
+  searchMovies(searchQuery.value.trim(), page).then(data => {
+    if (data.data.results.length === 0) {
+      refs.errorSearchRef.classList.remove('is-hidden');
+      preload();
+      setTimeout(() => {
+        refs.errorSearchRef.classList.add('is-hidden');
+      }, 5000);
+
+      searchQuery.value = '';
+    } else {
+      localStorage.setItem(LOCALSTORAGE_TRUESEARCH, searchQuery.value);
+      clearGallery();
+      page = 1;
+
+      galleryMarkup(createGalery(data));
+
+      pagination(data.data.page, data.data.total_pages);
+      refs.pagination.removeEventListener('click', paginationTrendMovie);
+      refs.pagination.addEventListener('click', paginationOnSearch);
+      setTimeout(() => {
         preload();
-        setTimeout(() => {
-          refs.errorSearchRef.classList.add('is-hidden');
-        }, 5000);
-
-        searchQuery.value = '';
-      } else {
-        localStorage.setItem(LOCALSTORAGE_TRUESEARCH, searchQuery.value);
-        clearGallery();
-        page = 1;
-
-        galleryMarkup(createGalery(data));
-
-        pagination(data.data.page, data.data.total_pages);
-        refs.pagination.removeEventListener('click', paginationTrendMovie);
-        refs.pagination.addEventListener('click', paginationOnSearch);
-        setTimeout(() => {
-          preload();
-        }, 700);
-      }
-    });
-  }
+      }, 700);
+    }
+  });
+  // }
   //   else {
   //     clearGallery();
   //     getPopularMovies(page).then(data => {
@@ -220,9 +224,12 @@ function closeModalByBtn() {
 }
 
 export function fullFilmInfo(e) {
-  preload();
-  fullFilmInfo;
   e.preventDefault();
+  fullFilmInfo;
+  if (e.target === e.currentTarget) {
+    return;
+  }
+  preload();
   document.querySelector('body').style.overflow = 'hidden';
   const filmId = e.target.closest('li').dataset.id;
   const firebaseId = e.target.closest('li').getAttribute('firebase-id');
@@ -317,63 +324,94 @@ export function fullFilmInfo(e) {
 
       if (document.title === 'My library') {
         buttonsWrapper.removeEventListener('click', handleSaveData);
+
         addQueueBtn.addEventListener('click', deleteQueue);
         addWatchedBtn.addEventListener('click', deleteWatched);
-        getDocs(colRefWatched).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            const data = [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            });
-            if (data) {
-              // console.log(addWatchedBtn);
-              addWatchedBtn.classList.remove('visually-hidden');
-              addWatchedBtn.textContent = 'Remove from Watched';
-              addQueueBtn.classList.add('visually-hidden');
-              return;
-            }
-            // ? (addWatchedBtn.textContent = 'Remove from Watched')
-            // : null;
-          });
-        });
+        if (refs.btnWatched.classList.contains('button--active')) {
+          console.log('watched');
+          getDocs(colRefWatched).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+              const data = [doc.data()].some(el => {
+                return el['id'] === Number(filmId);
+              });
+              // ? (addWatchedBtn.textContent = 'Remove from Watched')
+              // : null;
+              // return;
+              if (data) {
+                // console.log(addWatchedBtn);
+                addQueueBtn.style.display = 'none';
+                addWatchedBtn.style.display = 'block';
+                addWatchedBtn.textContent = 'Remove from Watched';
 
-        getDocs(colRefQueue).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            const data = [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
+                return;
+              }
+              //  else {
+              //   addWatchedBtn.style.display = 'none';
+              //   addQueueBtn.style.display = 'block';
+              // }
+              //
             });
-            // console.log(data);
-            if (data) {
-              // console.log(addQueueBtn);
-              addQueueBtn.classList.remove('visually-hidden');
-              addQueueBtn.textContent = 'Remove from Queue';
-              addWatchedBtn.classList.add('visually-hidden');
-              return;
-            }
-            // ? (addQueueBtn.textContent = 'Remove from Queue')
-            // : null;
           });
-        });
+        } else if (refs.btnQueue.classList.contains('button--active')) {
+          console.log('queue');
+          getDocs(colRefQueue).then(snapshot => {
+            snapshot.docs.forEach(doc => {
+              const data = [doc.data()].some(el => {
+                return el['id'] === Number(filmId);
+              });
+              // ? (addQueueBtn.textContent = 'Remove from Queue')
+              // : null;
+              // return;
+              // console.log(data);
+              if (data) {
+                // console.log(addQueueBtn);
+                addWatchedBtn.style.display = 'none';
+                addQueueBtn.style.display = 'block';
+                addQueueBtn.textContent = 'Remove from Queue';
+
+                return;
+              }
+              //  else {
+              //   addQueueBtn.style.display = 'none';
+              //   addWatchedBtn.style.display = 'block';
+              //   return;
+              // }
+              // ? (addQueueBtn.textContent = 'Remove from Queue')
+              // : null;
+            });
+          });
+        }
       } else if (document.title === 'Home') {
-        buttonsWrapper.addEventListener('click', handleSaveData);
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            buttonsWrapper.addEventListener('click', handleSaveData);
 
-        getDocs(colRefWatched).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? addWatchedBtn.setAttribute('disabled', '')
-              : null;
-          });
-        });
+            getDocs(colRefWatched).then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                [doc.data()].some(el => {
+                  return el['id'] === Number(filmId);
+                })
+                  ? addWatchedBtn.setAttribute('disabled', '')
+                  : null;
+              });
+            });
 
-        getDocs(colRefQueue).then(snapshot => {
-          snapshot.docs.forEach(doc => {
-            [doc.data()].some(el => {
-              return el['id'] === Number(filmId);
-            })
-              ? addQueueBtn.setAttribute('disabled', '')
-              : null;
-          });
+            getDocs(colRefQueue).then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                [doc.data()].some(el => {
+                  return el['id'] === Number(filmId);
+                })
+                  ? addQueueBtn.setAttribute('disabled', '')
+                  : null;
+              });
+            });
+          } else {
+            Notiflix.Notify.info('Just sign up for save movies!');
+            addQueueBtn.classList.add('visually-hidden');
+            addWatchedBtn.classList.add('visually-hidden');
+            addQueueBtn.setAttribute('disabled', '');
+            addWatchedBtn.setAttribute('disabled', '');
+          }
         });
       }
     });
@@ -394,7 +432,6 @@ function handleSaveData(e) {
     return;
   }
   if (target === addQueueBtn) {
-    console.log(target);
     saveData(colRefQueue, dataVar);
     target.setAttribute('disabled', '');
     return;
@@ -406,7 +443,7 @@ function handleSaveData(e) {
 }
 
 function saveData(collectionRef, data) {
-  console.log(collectionRef);
+  // console.log(collectionRef);
   Notiflix.Notify.success(
     `Movie has saved to ${collectionRef._path.segments[1]}`
   );

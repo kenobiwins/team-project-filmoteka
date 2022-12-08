@@ -4,9 +4,10 @@ import { refs } from './refs/refs';
 //   preload();
 // }, 1000);
 
-refs.btnWatched.addEventListener('click', onBtnWatched);
-refs.btnQueue.addEventListener('click', onBtnQueue);
-
+if (document.title === 'My library') {
+  refs.btnWatched.addEventListener('click', onBtnWatched);
+  refs.btnQueue.addEventListener('click', onBtnQueue);
+}
 function onBtnQueue(evt) {
   evt.preventDefault();
   refs.btnWatched.classList.remove('button--active');
