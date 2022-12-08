@@ -171,7 +171,7 @@ export function createGalery(data) {
       class="films-list__img"
       loading="lazy"
     />
-    <h2 class="films-list__title">${title}</h2>
+    <h3 class="films-list__title">${title}</h3>
     <p class="films-list__text-ganres">
       ${filmGenres} | ${
           release_date.split('-')[0]

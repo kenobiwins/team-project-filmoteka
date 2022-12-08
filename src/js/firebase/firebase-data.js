@@ -130,7 +130,7 @@ function renderByFirebase(data) {
       {
         poster_path,
         title,
-        genre_ids = "haven't genres",
+        genres,
         vote_average,
         name,
         release_date,
@@ -142,42 +142,33 @@ function renderByFirebase(data) {
       //   const genres = data[i].genres.map(el => {
       //     return el.name;
       //   });
-
+      console.log(poster_path);
       if (
         typeof poster_path === 'undefined' ||
-        typeof poster_path === 'object'
+        typeof poster_path === 'object' ||
+        poster_path.includes('no-poster')
       ) {
         poster_path = FAKE_POSTER;
       } else {
         poster_path = 'https://image.tmdb.org/t/p/w500/' + poster_path;
       }
-      //       acc += `<li class="films-list__item" data-id="${id}" firebase-id="${baseId}">
-      //   <a href="" class="films-list__link">
-      //     <img
-      //       src="${poster_path}"
-      //       alt="${title}"
-      //       class="films-list__img"
-      //       loading="lazy"
-      //     />
-      //     <h2 class="films-list__title">${title}</h2>
-      //     <span class="films-list__text-ganres">${genre_ids}</span>
-      //     <span class="films-list__span">|</span>
-      //     <span class="films-list__text-date">${release_date}|</span>
-      //     <span class="films-list__text-rating">${vote_average}</span>
-      //   </a>
-      // </li>`;
-      acc += `<li class="films-list__item"  data-id='${id}' firebase-id="${baseId}">
-        <img src='${poster_path}' loading='lazy'/>
-        <h3 class="movie-card__name">${title || name}</h3>
-        <p class="movie-card__genres">
-          ${
-            // genres.length === 0 ? "haven't genre" : genres.join(', ')
-            'genres'
-          }
-           <span class="movie-card__ratio">${
-             vote_average ? vote_average : "haven't ratio"
-           }</span>
-        </p>
+      acc += `<li class="films-list__item" data-id="${id}" firebase-id="${baseId}">
+        <a href="" class="films-list__link">
+          <img
+            src="${poster_path}"
+            alt="${title}"
+            class="films-list__img"
+            loading="lazy"
+          />
+          <h3 class="films-list__title">${title}</h3>
+          <p class="films-list__text-ganres">
+            ${genres} | ${
+        release_date.split('-')[0]
+      }  <span class="films-list__text-rating"
+        >${String(vote_average).slice(0, 3)}</span
+      >
+          </p>
+        </a>
       </li>`;
       return acc;
     },
