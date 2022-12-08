@@ -16,6 +16,8 @@ import {
   deleteWatched,
 } from './firebase/firebase-data';
 import Notiflix from 'notiflix';
+import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/dist/basicLightbox.min.css';
 import {
   pagination,
   paginationTrendMovie,
@@ -275,7 +277,7 @@ export function fullFilmInfo(e) {
       }, 100);
       // console.log(data.genres);
       dataVar = data;
-      // console.log(dataVar);
+      console.log(dataVar);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
@@ -292,7 +294,7 @@ export function fullFilmInfo(e) {
         <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres}</span></p>
     </div>
     <div class="modal__description">
-        <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="trailer"><img class="modal__button-play-wrapper" src="${TRAILER_BTN_IMG}" alt="trailer"></button></p>
+        <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="${filmId}"><img class="modal__button-play-wrapper" src="${TRAILER_BTN_IMG}" alt="trailer"></button></p>
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons" >
@@ -306,9 +308,51 @@ export function fullFilmInfo(e) {
       const btnCloseModal =
         refs.modalFilm.getElementsByClassName('button-close')[0];
       btnCloseModal.addEventListener('click', closeModalByBtn);
+
       const btnTrailerModal =
         refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
+      btnTrailerModal.addEventListener('click', showTrailer(filmId));
+
+      async function showTrailer(id) {
+        console.log('hi');
+        try {
+          const data = await getTrailerById(id);
+          console.log(data);
+
+          if (data.length === 0 || data === undefined) {
+            console.log(data.length);
+            Notiflix.Notify.failure('Sorry, trailer not found.');
+            return;
+          }
+
+          let key = '';
+          data.forEach(element => {
+            if (element.type === 'Trailer') {
+              if (element.name.includes('Official')) {
+                key = element.key;
+                return;
+              }
+            }
+          });
+
+          if (!key) {
+            key = data[0].key;
+          }
+
+          const instance = basicLightbox.create(`
+                <div>
+                    <iframe class="youtube-modal" width="80%" height="80%" src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            `);
+
+          instance.show();
+        } catch (error) {
+          Notiflix.Notify.failure('Sorry, trailer not found.');
+        }
+      }
+
+      // ===================================================================================
       const buttonsWrapper =
         refs.modalFilm.getElementsByClassName('modal__buttons')[0];
       buttonsWrapper.setAttribute('firebase-id', firebaseId);
@@ -415,3 +459,6 @@ function saveData(collectionRef, data) {
   );
   addDoc(collectionRef, data);
 }
+
+// const trailerBtn = document.querySelector('.modal__button-play');
+// console.log(trailerBtn);

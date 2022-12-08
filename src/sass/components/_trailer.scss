@@ -1,14 +1,14 @@
 // .modal {
 
-// 		&__backdrop {
-// 		}
+//   &__backdrop {
+//   }
 
-// 		&__container {
-// 		}
+//   &__container {
+//   }
 // }
 .trailer {
-  // 		&__backdrop {
-  // 		}
+  //   &__backdrop {
+  //   }
 
   &__window {
     @media screen and (max-width: 767px) {
@@ -23,11 +23,11 @@
     transform: translate(-50%, -50%);
     position: absolute;
 
-    @media screen and (min-width: $tablet) {
+    @media screen and (min-width: 768px) {
       width: 700px;
       height: 470px;
     }
-    @media screen and (min-width: $desktop) {
+    @media screen and (min-width: 1280px) {
       width: 815px;
       height: 550px;
     }

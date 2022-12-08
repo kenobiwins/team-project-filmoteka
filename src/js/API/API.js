@@ -73,7 +73,7 @@ async function getTrailerById(id) {
     if (!response.status) {
       throw new Error('There is no trailer for this film');
     }
-    return response;
+    return response.data.results;
   } catch (error) {
     console.log(error);
   }
