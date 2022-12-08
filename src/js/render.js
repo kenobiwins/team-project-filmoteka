@@ -320,15 +320,13 @@ export function fullFilmInfo(e) {
         refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
       btnTrailerModal.addEventListener('click', showTrailer);
-      // console.log(btnTrailerModal);
+
       async function showTrailer(e) {
         let trailerId = e.currentTarget.dataset.value;
         try {
           const data = await getTrailerById(trailerId);
-          console.log(data);
 
           if (data.length === 0 || data === undefined) {
-            console.log(data.length);
             Notiflix.Notify.failure('Sorry, trailer not found.');
             return;
           }
@@ -348,10 +346,9 @@ export function fullFilmInfo(e) {
           }
 
           instance = basicLightbox.create(
-            `
-                <div>
-                    <iframe class="youtube-modal" width="80%" height="80%" src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
-                </div>
+            `                
+              <iframe width="80%" height="80%" src="https://www.youtube.com/embed/${key}"></iframe>
+                
             `,
             {
               onShow: () => {
