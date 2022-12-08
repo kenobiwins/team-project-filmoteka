@@ -28,17 +28,19 @@ import { refs } from './refs/refs';
 import { preload } from './helpers/preloader';
 import { auth } from './firebase/firebase-auth';
 import { onAuthStateChanged } from 'firebase/auth';
+import playBtn from '../images/play-btn/play-btn.png';
+import fakePoster from '../images/no-poster/no-poster.jpg';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
-export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
+// export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
 const LOCALSTORAGE_KEY = 'genres';
 const LOCALSTORAGE_TRUESEARCH = 'trueSearch';
-const TRAILER_BTN_IMG =
-  // 'https://cdn.pixabay.com/photo/2022/05/27/11/18/motion-graphic-7224947_960_720.png';
-  // 'https://cdn.pixabay.com/photo/2021/12/17/11/52/play-6876336_960_720.png';
-  // 'https://cdn.pixabay.com/photo/2016/02/01/12/33/play-1173551_960_720.png';
-  // 'https://cdn.pixabay.com/photo/2013/07/12/13/49/movie-147368_960_720.png';
-  'https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png';
+// const TRAILER_BTN_IMG =
+// 'https://cdn.pixabay.com/photo/2022/05/27/11/18/motion-graphic-7224947_960_720.png';
+// 'https://cdn.pixabay.com/photo/2021/12/17/11/52/play-6876336_960_720.png';
+// 'https://cdn.pixabay.com/photo/2016/02/01/12/33/play-1173551_960_720.png';
+// 'https://cdn.pixabay.com/photo/2013/07/12/13/49/movie-147368_960_720.png';
+// 'https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png';
 // 'https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg';
 
 // const galleryRef = document.querySelector('.films-list');
@@ -152,7 +154,7 @@ export function createGalery(data) {
         }
 
         if (!poster_path) {
-          poster_path = FAKE_POSTER;
+          poster_path = fakePoster;
         } else {
           poster_path = BASE_POSTER_URL + poster_path;
         }
@@ -253,7 +255,7 @@ export function fullFilmInfo(e) {
     })
     .then(data => {
       if (!data.poster_path) {
-        data.poster_path = FAKE_POSTER;
+        data.poster_path = fakePoster;
       } else {
         data.poster_path = BASE_POSTER_URL + data.poster_path;
       }
@@ -307,7 +309,7 @@ export function fullFilmInfo(e) {
         <p class="modal__data-info"><span class="modal__data-info--grey">Genre</span><span>${data.genres}</span></p>
     </div>
     <div class="modal__description">
-        <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="${filmId}"><img class="modal__button-play-wrapper" src="${TRAILER_BTN_IMG}" alt="trailer"></button></p>
+        <p class="modal__description-title">About<button class="modal__button-play" type="button" data-value="${filmId}"><img class="modal__button-play-wrapper" src="${playBtn}" alt="trailer"></button></p>
         <p class="modal__description-about">${data.overview}</p>
     </div>
     <div class="modal__buttons" >

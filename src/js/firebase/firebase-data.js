@@ -4,11 +4,12 @@ import { refs } from '../refs/refs';
 // import { closeModalOnBtn, showInfoFromFirebase } from '../render/renderModal';
 import { closeModal, fullFilmInfo } from '../render';
 // import { ALT_IMAGE_URL, insertMarkup } from '../render/renderCards';
-import { FAKE_POSTER } from '../render';
+// import { FAKE_POSTER } from '../render';
 import Notiflix from 'notiflix';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, handleSignOut } from './firebase-auth';
 import { preload } from '../helpers/preloader';
+import fakePoster from '../../images/no-poster/no-poster.jpg';
 
 // collection ref
 let colRefWatched = collection(db, 'watched/');
@@ -150,7 +151,7 @@ function renderByFirebase(data) {
         typeof poster_path === 'object' ||
         poster_path.includes('no-poster')
       ) {
-        poster_path = FAKE_POSTER;
+        poster_path = fakePoster;
       } else {
         poster_path = 'https://image.tmdb.org/t/p/w500/' + poster_path;
       }
