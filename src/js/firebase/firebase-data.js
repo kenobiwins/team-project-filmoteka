@@ -70,6 +70,7 @@ async function getWatchedCollection(e) {
 
       if (data.length === 0) {
         showEmptyData('watched');
+        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
 
@@ -103,6 +104,7 @@ function getQueueCollection(e) {
       // Notiflix.Loading.remove();
       if (data.length === 0) {
         showEmptyData('queue');
+        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
 
