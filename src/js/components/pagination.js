@@ -3,6 +3,7 @@ import { createGalery } from '../render';
 import { refs } from '../refs/refs';
 import { smoothScrollUp } from './scroll-up';
 import { preload } from '../helpers/preloader';
+import symbolDefs from '../../images/svg/symbol-defs.svg';
 
 export const mqMoreThanMobile = window.matchMedia('(min-width: 768px)').matches;
 
@@ -26,10 +27,18 @@ export function pagination(page, pages) {
   // </svg>;
   if (page > 1) {
     if (mqMoreThanMobile) {
-      markup += `<li class='pagination__item' data-action='prev'>&#129144;</li>`;
+      markup += `<li class='pagination__item' data-action='prev'>
+        <svg width="16px" height="16px" class="icon icon--left">
+     <use href="${symbolDefs}#icon-arrow"></use>
+   </svg>
+  </li>`;
       markup += `<li class='pagination__item'>1</li>`;
     } else {
-      markup += `<li class='pagination__item' data-action='prev'>&#129144;</li>`;
+      markup += `<li class='pagination__item' data-action='prev'>
+        <svg width="16px" height="16px" class="icon icon--left">
+     <use href="${symbolDefs}#icon-arrow"></use>
+   </svg>
+  </li>`;
     }
   }
   if (page > 4) {
@@ -66,9 +75,17 @@ export function pagination(page, pages) {
   if (PAGES > PAGE) {
     if (mqMoreThanMobile) {
       markup += `<li class='pagination__item'>${PAGES}</li>`;
-      markup += `<li class='pagination__item' data-action='next'>&#129146;</li>`;
+      markup += `<li class='pagination__item' data-action='next'>
+      <svg width="16px" height="16px" class="icon icon--right" >
+     <use href="${symbolDefs}#icon-arrow"></use>
+   </svg>
+   </li>`;
     } else {
-      markup += `<li class='pagination__item' data-action='next'>&#129146;</li>`;
+      markup += `<li class='pagination__item' data-action='next'>
+      <svg width="16px" height="16px" class="icon icon--right" >
+     <use href="${symbolDefs}#icon-arrow"></use>
+   </svg>
+   </li>`;
     }
   }
   refs.pagination.innerHTML = markup;
@@ -95,7 +112,7 @@ export async function paginationTrendMovie(e) {
     return;
   }
 
-  if (target.dataset.action === 'next') {
+  if (target.closest('li').dataset.action === 'next') {
     PAGE += 1;
 
     getPopularByPage(PAGE);
@@ -105,7 +122,7 @@ export async function paginationTrendMovie(e) {
 
     return;
   }
-  if (target.dataset.action === 'prev') {
+  if (target.closest('li').dataset.action === 'prev') {
     PAGE -= 1;
     getPopularByPage(PAGE);
     // const response = await getPopularMovies(PAGE);
@@ -143,7 +160,7 @@ export async function paginationOnSearch(e) {
   if (target === currentTarget || target.textContent === '...') {
     return;
   }
-  if (target.dataset.action === 'next') {
+  if (target.closest('li').dataset.action === 'next') {
     PAGE += 1;
     getBySearchPage(PAGE);
     // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
@@ -151,7 +168,7 @@ export async function paginationOnSearch(e) {
     // pagination(response.data.page, response.data.total_pages);
     return;
   }
-  if (target.dataset.action === 'prev') {
+  if (target.closest('li').dataset.action === 'prev') {
     PAGE -= 1;
     getBySearchPage(PAGE);
     // const response = await searchMovies(refs.form.searchQuery.value, PAGE);
