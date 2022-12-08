@@ -41,18 +41,31 @@
   }
 // }
 .lightTheme__icon{
+    width: 20px;
+        height: 20px;
     // border: 50%;
     fill: gray;
     stroke: white;
-
+@include mq(tablet) {
+        
+        width: 40px;
+        height: 40px;
+    }
 }
 .lightTheme__icon.is-darkTheme{
     display: none;
 }
 
 .darkTheme__icon{
-        fill: aqua;
+    width: 20px;
+    height: 20px;
+    fill: aqua;
     // stroke: white;
+    @include mq(tablet) {
+    
+            width: 40px;
+            height: 40px;
+        }
 }
 .darkTheme__icon.is-lightTheme{
     display: none;
