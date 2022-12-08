@@ -56,9 +56,11 @@ if (document.title === 'Home') {
 if (document.title === 'Home') {
   window.addEventListener('DOMContentLoaded', async () => {
     preload();
-    await getGenresList().then(array => {
-      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
-    });
+    if (!JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))) {
+      await getGenresList().then(array => {
+        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
+      });
+    }
     genres = await JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 
     getPopularMovies(page).then(data => {
