@@ -12,28 +12,34 @@
     </button>
     <form class="signup">
       <h2>Register right now</h2>
+
+      <input type="email" id="email-registr" name="email" autocomplete="off" />
       <label for="email-registr">email</label>
-      <input type="email" id="email-registr" name="email" />
-      <label for="password-registr">password</label>
+
       <input type="password" id="password-registr" name="password" />
+      <label for="password-registr">password</label>
       <button class="button modal__button" type="submit">Sign up</button>
     </form>
     <form class="login" data-value="login">
       <h2>Have account?</h2>
+
+      <input type="email" id="email-sign" name="email" autocomplete="off" />
       <label for="email-sign">email</label>
-      <input type="email" id="email-sign" name="email" />
-      <label for="password-sign">password</label>
+
       <input type="password" id="password-sign" name="password" />
-      <button class="button modal__button" type="submit" data-action="login">
-        Log in
-      </button>
-      <button
-        class="button modal__button"
-        type="button"
-        data-action="login-with-google"
-      >
-        Log in with Google
-      </button>
+      <label for="password-sign">password</label>
+      <div class="signInBtns">
+        <button class="button modal__button" type="submit" data-action="login">
+          Log in
+        </button>
+        <button
+          class="button modal__button"
+          type="button"
+          data-action="login-with-google"
+        >
+          Log in with Google
+        </button>
+      </div>
     </form>
     <button class="button modal__button" type="button" data-action="logout">
       Log out

@@ -1,8 +1,22 @@
 .register-form {
   align-items: center;
   justify-content: space-evenly;
+  border-radius: 10px;
   min-width: 40%;
   height: auto;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(47, 48, 58, 0.9),
+      rgba(47, 48, 58, 0.6)
+    ),
+    url(../images/registration/filmstrip-1174228.png);
+  background-size: initial;
+  background-repeat: no-repeat;
+  color: map-get($colorPool, 'gray-light');
+
+  @include mq(tablet) {
+    background-size: cover;
+  }
 
   & form {
     display: flex;
@@ -10,5 +24,42 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+  }
+  & input {
+    letter-spacing: 0.03em;
+    // width: 100%;
+    color: #fff;
+    opacity: 0.8;
+    background-color: #0000;
+    border: none;
+    border-bottom: 0.5px solid #fff;
+    outline: none;
+    padding-bottom: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.14286;
+    // padding-top: 10px;
+  }
+  & h2 {
+    color: map-get($colorPool, 'orange');
+    margin-bottom: 20px;
+  }
+
+  & label {
+    font-size: 12px;
+    // padding-bottom: 10px;
+  }
+  // & .button-close {
+  //   color: map-get($colorPool, 'gray-light');
+  // }
+}
+
+.signInBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include mq(tablet) {
+    flex-direction: row;
   }
 }
