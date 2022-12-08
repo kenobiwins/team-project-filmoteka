@@ -396,7 +396,7 @@ export function fullFilmInfo(e) {
         addQueueBtn.addEventListener('click', deleteQueue);
         addWatchedBtn.addEventListener('click', deleteWatched);
         if (refs.btnWatched.classList.contains('button--active')) {
-          console.log('watched');
+          // console.log('watched');
           getDocs(colRefWatched).then(snapshot => {
             snapshot.docs.forEach(doc => {
               const data = [doc.data()].some(el => {
@@ -421,7 +421,7 @@ export function fullFilmInfo(e) {
             });
           });
         } else if (refs.btnQueue.classList.contains('button--active')) {
-          console.log('queue');
+          // console.log('queue');
           getDocs(colRefQueue).then(snapshot => {
             snapshot.docs.forEach(doc => {
               const data = [doc.data()].some(el => {

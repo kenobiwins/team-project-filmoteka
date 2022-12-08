@@ -123,7 +123,7 @@ function getQueueCollection(e) {
 }
 
 function renderByFirebase(data) {
-  console.log(data);
+  // console.log(data);
   return data.reduce(
     (
       acc,
@@ -142,7 +142,7 @@ function renderByFirebase(data) {
       //   const genres = data[i].genres.map(el => {
       //     return el.name;
       //   });
-      console.log(poster_path);
+      // console.log(poster_path);
       if (
         typeof poster_path === 'undefined' ||
         typeof poster_path === 'object' ||
