@@ -37,7 +37,7 @@ function registerUser(e) {
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then(cred => {
       console.log('user created', cred.user);
-      Notiflix.Notify.success(`user created ${cred.user}`);
+      Notiflix.Notify.success(`user created ${cred.user.email}`);
       currentTarget.reset();
     })
     .catch(error => {
@@ -166,6 +166,7 @@ function checkUserLog() {
   // Notiflix.Loading.pulse();
   return onAuthStateChanged(auth, user => {
     if (user) {
+      closeModalOnBtnRegister();
       refs.signUpBtn.textContent = user.displayName || user.email;
       refs.signUpBtn.classList.add('link--current');
       refs.formLogin.style.display = 'none';
