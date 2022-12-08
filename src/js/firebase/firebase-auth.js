@@ -96,8 +96,8 @@ function handleLogIn(e) {
   }
 }
 
-async function loginWithGoogle(e) {
-  signInWithRedirect(auth, await providerGoogle);
+function loginWithGoogle(e) {
+  signInWithRedirect(auth, providerGoogle);
 
   // signInWithPopup(auth, providerGoogle);
   // .then(result => {
