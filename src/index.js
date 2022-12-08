@@ -6,3 +6,5 @@ import './js/firebase/firebase-data';
 import './js/home-gallery';
 import './js/ourteam';
 import './js/light-dark';
+
+import './js/crew-render';
