@@ -7,7 +7,10 @@
   }
 
   &__item + &__item {
-    margin-left: 39px;
+    margin-left: 10px;
+    @include mq(tablet) {
+      margin-left: 39px;
+    }
   }
 
   &__link {
@@ -17,5 +20,14 @@
     text-align: center;
 
     color: map-get($colorPool, 'white');
+  }
+  &__item:last-child {
+    @include mq(mobile) {
+      width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: map-get($colorPool, 'white');
+    }
   }
 }
