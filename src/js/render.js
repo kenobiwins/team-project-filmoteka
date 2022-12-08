@@ -35,10 +35,10 @@ const LOCALSTORAGE_KEY = 'genres';
 const LOCALSTORAGE_TRUESEARCH = 'trueSearch';
 const TRAILER_BTN_IMG =
   // 'https://cdn.pixabay.com/photo/2022/05/27/11/18/motion-graphic-7224947_960_720.png';
-  'https://cdn.pixabay.com/photo/2021/12/17/11/52/play-6876336_960_720.png';
-// 'https://cdn.pixabay.com/photo/2016/02/01/12/33/play-1173551_960_720.png';
-// 'https://cdn.pixabay.com/photo/2013/07/12/13/49/movie-147368_960_720.png';
-// 'https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png';
+  // 'https://cdn.pixabay.com/photo/2021/12/17/11/52/play-6876336_960_720.png';
+  // 'https://cdn.pixabay.com/photo/2016/02/01/12/33/play-1173551_960_720.png';
+  // 'https://cdn.pixabay.com/photo/2013/07/12/13/49/movie-147368_960_720.png';
+  'https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png';
 // 'https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg';
 
 // const galleryRef = document.querySelector('.films-list');
