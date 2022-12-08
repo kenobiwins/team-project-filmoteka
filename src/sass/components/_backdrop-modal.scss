@@ -132,10 +132,14 @@
 }
 .modal__description-title {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 }
 
 .modal__button-play {
+  background-color: transparent;
   width: 40px;
   border: none;
   padding: 0;
