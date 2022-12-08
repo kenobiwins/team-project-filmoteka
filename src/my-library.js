@@ -5,5 +5,5 @@ import './js/firebase/firebase-auth';
 import './js/firebase/firebase-data';
 import './js/my-library';
 import './js/light-dark';
-import './js/ourteam';
-import './js/crew-render';
+import './js/team-modal';
+import './js/team-render';

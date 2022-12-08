@@ -1,48 +1,56 @@
 .team__modal {
   text-align: center;
   position: relative;
-  width: 100%;
+  width: 80%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 520px;
+  height: 620px;
   overflow-y: auto;
-  // background-color: #252b42;
-  background-color: rgba(185, 100, 255, 0.5);
-  @media screen and (min-width: 768px) {
-    width: 768px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 1200px;
-  }
-}
+  background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    // box-shadow: var(--card-shadow)
+    box-shadow: 2px 2px 3px 3px rgb(255 107 8 / 50%);
 
-.team {
-  background-color: #f5f4fa;
-}
+    @include mq(tablet) {
+      width: 704px;
+      // top: 219px;
+      padding: 30px 72px 40px 36px;
+      gap: 20px;
+      // max-height: 50%;
+    }
+  
+    @include mq(desktop) {
+      width: 906px;
+      padding: 10px 12px;
+      gap: 10px;
+      max-height: 80%;
+    }
+       
+  }
+// .team {
+//   background-color: #f5f4fa;
+// }
 
 .team__title {
   font-family: 'Roboto';
-  margin-top: 15px;
+  // margin-top: 15px;
   margin-bottom: 15px;
   font-weight: 700;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1.17;
   text-align: center;
   letter-spacing: 0.03em;
-  color: #ff0101;
-  text-shadow: 1px -1px 0 #767676, -1px 2px 1px hsl(0, 0%, 45%),
-    -2px 4px 1px #767474, -3px 6px 1px #151313, -4px 8px 1px #7b7a7a,
-    -5px 10px 1px #f08d0c, -6px 12px 1px #0c0b0b, -7px 14px 1px #e71717;
+
 
   @media screen and (min-width: 768px) {
-    margin-top: 15px;
+    // margin-top: 15px;
     margin-bottom: 20px;
   }
 
   @media screen and (min-width: 1280px) {
-    font-size: 36px;
-    margin-bottom: 30px;
+    font-size: 28px;
   }
 }
 
@@ -52,55 +60,61 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  @media screen and (min-width: 768px) {
-    width: 300px;
-    height: 374px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 206px;
-    height: 260px;
-  }
+width: 137px;
+      height: 173px;
+ 
+    // @include mq(tablet) {
+    //   width: 300px;
+    //     height: 374px;
+    // }
+  
+    // @include mq(desktop) {
+    //   width: 206px;
+    //     height: 260px;
+    // }
 }
 
 .team__item {
-  background-color: white;
+  // background-color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+  background-color: var(--bg-color);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
 }
-.team__item + .team__item {
-  margin-top: 30px;
+// .team__item:not(:last-child) {
 
-  @media screen and (min-width: 767px) {
-    margin-top: 0;
-  }
-}
+
+//   @media screen and (min-width: 767px) {
+//     margin-top: 0;
+//   }
+// }
 
 .team-wrapper__title {
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 6px;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 1.18;
+  font-size: 14px;
+  line-height: 1.14;
   letter-spacing: 0.03em;
   text-align: center;
 }
 .team-wrapper__text {
-  margin-bottom: 16px;
-  font-size: 16px;
-  line-height: 1.18;
+  // margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 1.14;
   letter-spacing: 0.03em;
   text-align: center;
 }
 
 .team__list-icon {
-  padding-bottom: 24px;
+  // padding-bottom: 10px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  // gap: 10px;
 }
 
 .team__link {
@@ -108,8 +122,8 @@
   justify-content: center;
   align-items: center;
 
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   fill: #afb1b8;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
@@ -125,30 +139,31 @@
 .team__list {
   padding-right: 20px;
   padding-left: 20px;
-}
-
-@media screen and (min-width: 768px) {
-  .team__list {
-    margin-left: 50px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
+  display: flex;
+    gap: 20px;
     flex-wrap: wrap;
-  }
+    justify-content: space-around;
 }
 
-@media screen and (min-width: 1280px) {
-  .team__list {
-    margin-left: 20px;
-  }
-}
+// @media screen and (min-width: 768px) {
+//   .team__list {
+//     // margin-left: 50px;
+//     margin-bottom: 20px;
+    
+//   }
+// }
+
+// @media screen and (min-width: 1280px) {
+//   .team__list {
+//     margin-left: 20px;
+//   }
+// }
 
 .team-modal__button {
   position: absolute;
   right: 20px;
   top: 20px;
-  fill: rgb(255, 255, 128);
-  //   opacity: 0;
+  fill: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
