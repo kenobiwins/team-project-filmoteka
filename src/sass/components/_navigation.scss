@@ -25,7 +25,7 @@
     @include mq(mobile) {
       width: 100px;
       overflow: hidden;
-      white-space: nowrap;
+      // white-space: nowrap;
       text-overflow: ellipsis;
       color: map-get($colorPool, 'white');
     }
