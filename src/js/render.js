@@ -162,13 +162,13 @@ export function createGalery(data) {
       loading="lazy"
     />
     <h2 class="films-list__title">${title}</h2>
-    <span class="films-list__text-ganres">${filmGenres} |</span>
-  
-    <span class="films-list__text-date">${release_date.split('-')[0]}</span>
-    <span class="films-list__text-rating">${String(vote_average).slice(
-      0,
-      3
-    )}</span>
+    <p class="films-list__text-ganres">
+      ${filmGenres} | ${
+          release_date.split('-')[0]
+        }  <span class="films-list__text-rating"
+  >${String(vote_average).slice(0, 3)}</span
+>
+    </p>
   </a>
 </li>`;
       }
