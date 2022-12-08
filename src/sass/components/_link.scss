@@ -10,6 +10,7 @@
   &--current {
     &::after {
       position: absolute;
+      left: 0;
       bottom: -3px;
 
       display: block;

@@ -216,6 +216,9 @@ if (document.title === 'Home') {
   refs.galleryHome.addEventListener('click', fullFilmInfo);
   refs.modalFilm.addEventListener('click', closeModal);
   window.addEventListener('keydown', closeModalByEsc);
+} else {
+  refs.modalFilm.addEventListener('click', closeModal);
+  window.addEventListener('keydown', closeModalByEsc);
 }
 
 export function closeModal(e) {

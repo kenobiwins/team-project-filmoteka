@@ -24,7 +24,7 @@
   &__item:last-child {
     @include mq(mobile) {
       width: 100px;
-      overflow: hidden;
+      // overflow: hidden;
       // white-space: nowrap;
       text-overflow: ellipsis;
       color: map-get($colorPool, 'white');
