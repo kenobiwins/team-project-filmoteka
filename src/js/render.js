@@ -45,6 +45,8 @@ if (document.title === 'Home') {
   refs.form.addEventListener('submit', onFormSubmit);
 }
 
+let instance;
+
 // preloader.classList.remove('visually-hidden');
 
 // window.onload = setTimeout(() => {
@@ -277,7 +279,7 @@ export function fullFilmInfo(e) {
       }, 100);
       // console.log(data.genres);
       dataVar = data;
-      console.log(dataVar);
+      // console.log(dataVar);
       const filmInfo = `<div class="modal">
   <button class="button-close" type="button" data-modal-close>
     <svg class="button-close__icon" width="14" height="14">
@@ -312,12 +314,12 @@ export function fullFilmInfo(e) {
       const btnTrailerModal =
         refs.modalFilm.getElementsByClassName('modal__button-play')[0];
       // btnTrailerModal.addEventListener('click', FUNCTION(filmId)); -------- сюди додату функцію для відтворення трейлера
-      btnTrailerModal.addEventListener('click', showTrailer(filmId));
-
-      async function showTrailer(id) {
-        console.log('hi');
+      btnTrailerModal.addEventListener('click', showTrailer);
+      // console.log(btnTrailerModal);
+      async function showTrailer(e) {
+        let trailerId = e.currentTarget.dataset.value;
         try {
-          const data = await getTrailerById(id);
+          const data = await getTrailerById(trailerId);
           console.log(data);
 
           if (data.length === 0 || data === undefined) {
@@ -340,15 +342,35 @@ export function fullFilmInfo(e) {
             key = data[0].key;
           }
 
-          const instance = basicLightbox.create(`
+          instance = basicLightbox.create(
+            `
                 <div>
                     <iframe class="youtube-modal" width="80%" height="80%" src="https://www.youtube.com/embed/${key}" frameborder="0" allowfullscreen></iframe>
                 </div>
-            `);
+            `,
+            {
+              onShow: () => {
+                // console.log('Добавили ESC');
+                document.addEventListener('keydown', onPressEscape);
+              },
+              onClose: () => {
+                // console.log('Убрали ESC');
+                document.removeEventListener('keydown', onPressEscape);
+              },
+            }
+          );
 
           instance.show();
         } catch (error) {
           Notiflix.Notify.failure('Sorry, trailer not found.');
+        }
+      }
+
+      function onPressEscape(event) {
+        if (event.key === 'Escape') {
+          instance.close(() => {
+            // console.log('Закрыли, когда нажали ESC');
+          });
         }
       }
 
