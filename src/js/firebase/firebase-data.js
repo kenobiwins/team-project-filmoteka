@@ -238,5 +238,4 @@ export {
   deleteWatched,
   deleteQueue,
   handleDeleteData,
-  saveData,
 };

@@ -406,6 +406,9 @@ export function fullFilmInfo(e) {
               });
             });
           } else {
+            Notiflix.Notify.info('Just sign up for save movies!');
+            addQueueBtn.classList.add('visually-hidden');
+            addWatchedBtn.classList.add('visually-hidden');
             addQueueBtn.setAttribute('disabled', '');
             addWatchedBtn.setAttribute('disabled', '');
           }

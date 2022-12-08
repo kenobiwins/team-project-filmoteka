@@ -125,15 +125,18 @@ function showSignUpModal(e) {
     'click',
     closeModalOnBackdropClickRegister
   );
-
+  window.addEventListener('keydown', closeModalOnBackdropClickRegister);
   refs.backdropRegister.classList.remove('is-hidden');
+  if (!refs.backdropRegister.classList.contains('is-hidden')) {
+    refs.signUpBtn.classList.add('link--current');
+  }
   document.body.classList.add('no-scroll');
 }
 
 function closeModalOnBtnRegister(e) {
   refs.backdropRegister.classList.add('is-hidden');
   document.body.classList.remove('no-scroll');
-
+  refs.signUpBtn.classList.remove('link--current');
   refs.buttonCloseRegister.removeEventListener(
     'click',
     closeModalOnBtnRegister
@@ -148,10 +151,12 @@ function closeModalOnBackdropClickRegister(e) {
   if (target === currentTarget) {
     refs.backdropRegister.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
+    refs.signUpBtn.classList.remove('link--current');
   }
   if (code === 'Escape') {
     refs.backdropRegister.classList.add('is-hidden');
     document.body.classList.remove('no-scroll');
+    refs.signUpBtn.classList.remove('link--current');
   }
 
   window.removeEventListener('keydown', closeModalOnBackdropClickRegister);
@@ -162,6 +167,7 @@ function checkUserLog() {
   return onAuthStateChanged(auth, user => {
     if (user) {
       refs.signUpBtn.textContent = user.displayName || user.email;
+      refs.signUpBtn.classList.add('link--current');
       refs.formLogin.style.display = 'none';
       refs.formRegister.style.display = 'none';
       refs.headerNav
