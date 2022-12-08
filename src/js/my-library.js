@@ -1,3 +1,4 @@
+import { preload } from './helpers/preloader';
 import { refs } from './refs/refs';
 // import { preload } from './helpers/preloader';
 // window.onload = setTimeout(() => {

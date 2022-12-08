@@ -8,6 +8,7 @@ import { FAKE_POSTER } from '../render';
 import Notiflix from 'notiflix';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, handleSignOut } from './firebase-auth';
+import { preload } from '../helpers/preloader';
 
 // collection ref
 let colRefWatched = collection(db, 'watched/');
@@ -27,6 +28,7 @@ onAuthStateChanged(auth, user => {
 });
 
 if (document.title === 'My library') {
+  preload();
   onAuthStateChanged(auth, user => {
     if (user) {
       USER_ID = user.uid;
@@ -38,6 +40,7 @@ if (document.title === 'My library') {
       return;
     }
     getWatchedCollection();
+    preload();
   });
 
   //  loader start
@@ -73,7 +76,6 @@ async function getWatchedCollection(e) {
         insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
-
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
 
       //   refs.addWatchedBtn.classList.remove('visually-hidden');
