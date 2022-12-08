@@ -203,7 +203,7 @@ function handleDeleteData(e, path_to_folder, coolectionRef) {
   // deleteDoc(docRef);
   getDocs(coolectionRef)
     .then(snapshot => {
-      console.log(snapshot);
+      // console.log(snapshot);
       return getData(snapshot);
     })
     .then(async data => {
