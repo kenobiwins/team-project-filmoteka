@@ -40,6 +40,7 @@ function registerUser(e) {
       preload();
       Notiflix.Notify.success(`user created ${cred.user.email}`);
       currentTarget.reset();
+      refs.buttonLogout.style.display = 'block';
       preload();
     })
     .catch(error => {
