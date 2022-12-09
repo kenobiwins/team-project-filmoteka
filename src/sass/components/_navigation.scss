@@ -27,7 +27,10 @@
       overflow: hidden;
       // white-space: nowrap;
       text-overflow: ellipsis;
-      color: map-get($colorPool, 'white');
+      color: map-get($colorPool, 'orange');
     }
+  }
+  &__item:last-child .signIn {
+    color: map-get($colorPool, 'orange');
   }
 }
