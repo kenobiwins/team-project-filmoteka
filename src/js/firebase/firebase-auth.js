@@ -81,6 +81,10 @@ function handleLogIn(e) {
     Notiflix.Notify.warning('Please enter password');
     return;
   } else {
+    preload();
+    setTimeout(() => {
+      preload();
+    }, 1000);
     signInWithEmailAndPassword(auth, email.value, password.value)
       .then(cred => {
         preload();
@@ -171,11 +175,15 @@ function closeModalOnBackdropClickRegister(e) {
 
 function checkUserLog() {
   // Notiflix.Loading.pulse();
+  preload();
+  setTimeout(() => {
+    preload();
+  }, 1000);
   return onAuthStateChanged(auth, user => {
     if (user) {
       closeModalOnBtnRegister();
       refs.signUpBtn.textContent = user.displayName || user.email;
-      refs.signUpBtn.classList.add('link--current');
+      // refs.signUpBtn.classList.add('link--current');
       refs.formLogin.style.display = 'none';
       refs.formRegister.style.display = 'none';
       refs.headerNav
