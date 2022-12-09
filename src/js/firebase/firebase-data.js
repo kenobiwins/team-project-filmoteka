@@ -77,7 +77,7 @@ async function getWatchedCollection(e) {
 
       if (data.length === 0) {
         showEmptyData('watched');
-        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+        // insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
       insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
@@ -113,7 +113,7 @@ function getQueueCollection(e) {
       // Notiflix.Loading.remove();
       if (data.length === 0) {
         showEmptyData('queue');
-        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+        // insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
 
@@ -132,7 +132,6 @@ function getQueueCollection(e) {
 }
 
 function renderByFirebase(data) {
-  // console.log(data);
   return data.reduce(
     (
       acc,
@@ -216,9 +215,18 @@ function handleDeleteData(e, path_to_folder, coolectionRef) {
       return getData(snapshot);
     })
     .then(async data => {
-      insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+      if (data.length === 0 && path_to_folder.includes('watched')) {
+        refs.modalFilm.classList.add('is-hidden');
+        return showEmptyData(`watched`);
+      } else if (data.length === 0 && path_to_folder.includes('queue')) {
+        refs.modalFilm.classList.add('is-hidden');
+        return showEmptyData('queue');
+      } else {
+        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+        refs.modalFilm.classList.add('is-hidden');
+        return;
+      }
       //   closeModal();
-      refs.modalFilm.classList.add('is-hidden');
     });
 }
 
@@ -231,7 +239,9 @@ function deleteWatched(e) {
 }
 
 function showEmptyData(name) {
-  Notiflix.Notify.info(`Your ${name} tab is empty 😔`);
+  // Notiflix.Notify.info(`Your ${name} tab is empty 😔`);
+
+  refs.galleryLibrary.innerHTML = `<p>Your ${name} tab is empty 😔</p>`;
 }
 
 export {

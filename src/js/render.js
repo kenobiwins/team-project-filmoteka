@@ -243,7 +243,7 @@ function closeModalByBtn() {
 export function fullFilmInfo(e) {
   e.preventDefault();
   fullFilmInfo;
-  if (e.target === e.currentTarget) {
+  if (e.target === e.currentTarget || e.target.nodeName === 'P') {
     return;
   }
   preload();
