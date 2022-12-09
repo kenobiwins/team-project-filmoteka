@@ -162,7 +162,7 @@ function renderByFirebase(data) {
         poster_path = 'https://image.tmdb.org/t/p/w500/' + poster_path;
       }
       acc += `<li class="films-list__item" data-id="${id}" firebase-id="${baseId}">
-        <a href="" class="films-list__link">
+        <a href="#" class="films-list__link">
           <img
             src="${poster_path}"
             alt="${title}"
