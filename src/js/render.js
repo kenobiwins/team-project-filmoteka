@@ -358,7 +358,7 @@ export function fullFilmInfo(e) {
 
           instance = basicLightbox.create(
             `                
-              <iframe width="80%" height="70%" allow="fullscreen" src="https://www.youtube.com/embed/${key}"></iframe>
+              <iframe class="youtube-modal" allow="fullscreen" src="https://www.youtube.com/embed/${key}"></iframe>
                 
             `,
             {
