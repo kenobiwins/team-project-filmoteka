@@ -5,14 +5,11 @@ import {
   getGenresList,
   getTrailerById,
 } from './API/API';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
-import { onBtnQueue, onBtnWatched } from './my-library';
+import { getDocs, addDoc } from 'firebase/firestore';
+
 import {
-  addToQueue,
-  addToWatched,
   colRefQueue,
   colRefWatched,
-  handleWatched,
   deleteQueue,
   deleteWatched,
 } from './firebase/firebase-data';
@@ -32,25 +29,12 @@ import playBtn from '../images/play-btn/play-btn.png';
 import fakePoster from '../images/no-poster/no-poster.jpg';
 
 const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
-// export const FAKE_POSTER = 'https://moviestars.to/no-poster.png';
+
 const LOCALSTORAGE_KEY = 'genres';
 const LOCALSTORAGE_TRUESEARCH = 'trueSearch';
-// const TRAILER_BTN_IMG =
-// 'https://cdn.pixabay.com/photo/2022/05/27/11/18/motion-graphic-7224947_960_720.png';
-// 'https://cdn.pixabay.com/photo/2021/12/17/11/52/play-6876336_960_720.png';
-// 'https://cdn.pixabay.com/photo/2016/02/01/12/33/play-1173551_960_720.png';
-// 'https://cdn.pixabay.com/photo/2013/07/12/13/49/movie-147368_960_720.png';
-// 'https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png';
-// 'https://t4.ftcdn.net/jpg/00/31/52/05/240_F_31520505_E1LEpdbXWSPYxb4kuaZWfoi2JvAO8SKC.jpg';
 
-// const galleryRef = document.querySelector('.films-list');
-// const formRef = document.querySelector('.page-header__form');
-// const inputRef = document.querySelector('.page-header__input');
-// const errorSearchRef = document.querySelector('.page-header__error-text');
-// let searchQuery = '';
 let page = 1;
 let genres = [];
-let trueSearch = '';
 let dataVar = {};
 
 let instance;
@@ -493,8 +477,6 @@ export function fullFilmInfo(e) {
     });
 }
 
-// console.log(trueSearch);
-
 function handleSaveData(e) {
   const { target, currentTarget } = e;
   const addQueueBtn = refs.modalFilm.getElementsByClassName(
@@ -519,9 +501,8 @@ function handleSaveData(e) {
 }
 
 function saveData(collectionRef, data) {
-  // console.log(collectionRef);
   Notiflix.Notify.success(
-    `Movie has saved to ${collectionRef._path.segments[1]}`
+    `${data.title} has saved to ${collectionRef._path.segments[1]}`
   );
   addDoc(collectionRef, data);
 }

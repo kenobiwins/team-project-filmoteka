@@ -1,13 +1,10 @@
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { db } from './firebase-init';
 import { refs } from '../refs/refs';
-// import { closeModalOnBtn, showInfoFromFirebase } from '../render/renderModal';
-import { closeModal, fullFilmInfo } from '../render';
-// import { ALT_IMAGE_URL, insertMarkup } from '../render/renderCards';
-// import { FAKE_POSTER } from '../render';
-import Notiflix from 'notiflix';
+import { fullFilmInfo } from '../render';
+
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, handleSignOut } from './firebase-auth';
+import { auth } from './firebase-auth';
 import { preload } from '../helpers/preloader';
 import fakePoster from '../../images/no-poster/no-poster.jpg';
 
@@ -80,12 +77,12 @@ async function getWatchedCollection(e) {
         // insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         return;
       }
-      insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+      refs.galleryLibrary.addEventListener('click', fullFilmInfo);
 
+      return insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
       //   refs.addWatchedBtn.classList.remove('visually-hidden');
       //   refs.addWatchedBtn.textContent = 'Delete from watched';
       //   refs.addQueueBtn.classList.add('visually-hidden');
-      refs.galleryLibrary.addEventListener('click', fullFilmInfo);
       //   refs.addWatchedBtn.addEventListener('click', deleteWatched);
     })
     .catch(error => {
@@ -117,12 +114,12 @@ function getQueueCollection(e) {
         return;
       }
 
-      insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
+      refs.galleryLibrary.addEventListener('click', fullFilmInfo);
+      return insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
 
       // addQueueBtn.classList.remove('visually-hidden');
       // addQueueBtn.textContent = 'Delete from queue';
       // addWatchedBtn.classList.add('visually-hidden');
-      refs.galleryLibrary.addEventListener('click', fullFilmInfo);
 
       //   refs.addQueueBtn.addEventListener('click', deleteQueue);
     })
@@ -195,11 +192,11 @@ function getData(snapshot) {
 
 function deleteData(path_to_folder, e) {
   // const { target } = e;
-  const filmId = e.target.closest('div').getAttribute('firebase-id');
-  // console.log(filmId);
+  let filmId = e.target.closest('div').getAttribute('firebase-id');
+
   const docRef = doc(db, `${path_to_folder}`, filmId);
-  deleteDoc(docRef);
   document.body.style.overflow = 'auto';
+  return deleteDoc(docRef);
 }
 
 function handleDeleteData(e, path_to_folder, coolectionRef) {
@@ -217,16 +214,17 @@ function handleDeleteData(e, path_to_folder, coolectionRef) {
     .then(async data => {
       if (data.length === 0 && path_to_folder.includes('watched')) {
         refs.modalFilm.classList.add('is-hidden');
-        return showEmptyData(`watched`);
+        showEmptyData(`watched`);
+        return;
       } else if (data.length === 0 && path_to_folder.includes('queue')) {
         refs.modalFilm.classList.add('is-hidden');
-        return showEmptyData('queue');
+        showEmptyData('queue');
+        return;
       } else {
-        insertMarkup(refs.galleryLibrary, await renderByFirebase(data));
         refs.modalFilm.classList.add('is-hidden');
+        insertMarkup(refs.galleryLibrary, renderByFirebase(data));
         return;
       }
-      //   closeModal();
     });
 }
 
@@ -239,8 +237,6 @@ function deleteWatched(e) {
 }
 
 function showEmptyData(name) {
-  // Notiflix.Notify.info(`Your ${name} tab is empty 😔`);
-
   refs.galleryLibrary.innerHTML = `<p>Your ${name} tab is empty 😔</p>`;
 }
 

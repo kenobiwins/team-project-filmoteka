@@ -1,11 +1,5 @@
 import { refs } from './refs/refs';
-import {
-  getPopularMovies,
-  searchMovies,
-  getMovieById,
-  getGenresList,
-  getTrailerById,
-} from './API/API';
+import { getMovieById } from './API/API';
 
 // const filmsList = document.querySelector('.films-list')
 

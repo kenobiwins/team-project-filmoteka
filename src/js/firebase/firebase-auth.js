@@ -14,14 +14,12 @@ const auth = getAuth();
 const providerGoogle = new GoogleAuthProvider();
 
 if (document.title === 'Filmoteka') {
-  // Notiflix.Loading.pulse();
   checkUserLog();
   refs.signUpBtn.addEventListener('click', showSignUpModal);
   refs.formRegister.addEventListener('submit', registerUser);
   refs.buttonLogout.addEventListener('click', handleSignOut);
   refs.formLogin.addEventListener('submit', handleLogIn);
-  // refs.buttonLoginWithGoogle.addEventListener('click', loginWithGoogle);
-  // Notiflix.Loading.remove();
+
   return;
 } else {
   return;
@@ -36,7 +34,6 @@ function registerUser(e) {
 
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then(cred => {
-      // console.log('user created', cred.user);
       preload();
       Notiflix.Notify.success(`user created ${cred.user.email}`);
       currentTarget.reset();
@@ -53,7 +50,7 @@ function handleSignOut(e) {
   signOut(auth)
     .then(() => {
       preload();
-      // console.log('user signed out');
+
       refs.signUpBtn.textContent = 'Sign up';
       Notiflix.Notify.success('user signed out');
       closeModalOnBtnRegister();
@@ -90,7 +87,7 @@ function handleLogIn(e) {
     signInWithEmailAndPassword(auth, email.value, password.value)
       .then(cred => {
         preload();
-        // console.log('user logged in', cred.user);
+
         currentTarget.reset();
         Notiflix.Notify.success(`Hello ${cred.user.email}!`);
         refs.headerNav.querySelector(
@@ -100,7 +97,6 @@ function handleLogIn(e) {
 
         closeModalOnBtnRegister();
         preload();
-        // location.reload();
       })
       .catch(error => {
         Notiflix.Notify.failure(`user ${email.value} is not found`);
@@ -176,7 +172,6 @@ function closeModalOnBackdropClickRegister(e) {
 }
 
 function checkUserLog() {
-  // Notiflix.Loading.pulse();
   preload();
   setTimeout(() => {
     preload();
@@ -185,17 +180,15 @@ function checkUserLog() {
     if (user) {
       closeModalOnBtnRegister();
       refs.signUpBtn.textContent = user.displayName || user.email;
-      // refs.signUpBtn.classList.add('link--current');
+
       refs.formLogin.style.display = 'none';
       refs.formRegister.style.display = 'none';
       refs.headerNav
         .querySelector('[data-value="libraryRef"]')
         .parentElement.classList.remove('visually-hidden');
-      // Notiflix.Loading.remove();
     } else {
       refs.buttonLogout.style.display = 'none';
     }
-    // Notiflix.Loading.remove();
   });
 }
 
