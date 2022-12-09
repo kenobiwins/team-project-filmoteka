@@ -13,7 +13,7 @@ import { preload } from '../helpers/preloader';
 const auth = getAuth();
 const providerGoogle = new GoogleAuthProvider();
 
-if (document.title === 'Home') {
+if (document.title === 'Filmoteka') {
   // Notiflix.Loading.pulse();
   checkUserLog();
   refs.signUpBtn.addEventListener('click', showSignUpModal);
