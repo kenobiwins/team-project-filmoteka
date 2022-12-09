@@ -1,5 +1,5 @@
 const buttonUpRef = document.querySelector('.button-up');
-if (document.title === 'Home') {
+if (document.title === 'Filmoteka') {
   buttonUpRef.addEventListener('click', smoothScrollUp);
 }
 export function smoothScrollUp() {

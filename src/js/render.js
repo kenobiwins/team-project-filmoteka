@@ -61,7 +61,7 @@ let instance;
 //   preload();
 // }, 1000);
 //--------------------RENDER POPULAR MOVIES-----------------
-if (document.title === 'Home') {
+if (document.title === 'Filmoteka') {
   refs.form.addEventListener('submit', onFormSubmit);
   window.addEventListener('DOMContentLoaded', async () => {
     // preload();
@@ -212,7 +212,7 @@ function clearGallery() {
 
 //--------------------RENDER FILM-MODAL BY CLICK-----------------
 
-if (document.title === 'Home') {
+if (document.title === 'Filmoteka') {
   refs.galleryHome.addEventListener('click', fullFilmInfo);
   refs.modalFilm.addEventListener('click', closeModal);
   window.addEventListener('keydown', closeModalByEsc);
@@ -457,7 +457,7 @@ export function fullFilmInfo(e) {
             });
           });
         }
-      } else if (document.title === 'Home') {
+      } else if (document.title === 'Filmoteka') {
         onAuthStateChanged(auth, user => {
           if (user) {
             buttonsWrapper.addEventListener('click', handleSaveData);
