@@ -52,9 +52,6 @@ let page = 1;
 let genres = [];
 let trueSearch = '';
 let dataVar = {};
-if (document.title === 'Home') {
-  refs.form.addEventListener('submit', onFormSubmit);
-}
 
 let instance;
 
@@ -63,11 +60,14 @@ let instance;
 // window.onload = setTimeout(() => {
 //   preload();
 // }, 1000);
-
 //--------------------RENDER POPULAR MOVIES-----------------
 if (document.title === 'Home') {
+  refs.form.addEventListener('submit', onFormSubmit);
   window.addEventListener('DOMContentLoaded', async () => {
-    preload();
+    // preload();
+    // setTimeout(() => {
+    //   preload();
+    // }, 700);
     if (!JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))) {
       await getGenresList().then(array => {
         localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
@@ -81,9 +81,9 @@ if (document.title === 'Home') {
       pagination(data.data.page, data.data.total_pages);
       refs.pagination.addEventListener('click', paginationTrendMovie);
     });
-    setTimeout(() => {
-      preload();
-    }, 700);
+    // setTimeout(() => {
+    //   preload();
+    // }, 700);
   });
 }
 

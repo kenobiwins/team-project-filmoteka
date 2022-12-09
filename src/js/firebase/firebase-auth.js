@@ -57,7 +57,9 @@ function handleSignOut(e) {
       refs.signUpBtn.textContent = 'Sign up';
       Notiflix.Notify.success('user signed out');
       closeModalOnBtnRegister();
-      location.reload();
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     })
     .catch(error => {
       Notiflix.Notify.failure(error.message);
