@@ -58,7 +58,10 @@ if (document.title === 'My library') {
 
 async function getWatchedCollection(e) {
   // Notiflix.Loading.standard();
-
+  preload();
+  setTimeout(() => {
+    preload();
+  }, 300);
   // refs.getQueueDataBtn.classList.contains('button--active')
   //   ? refs.getQueueDataBtn.classList.remove('button--active')
   //   : null;
@@ -92,7 +95,10 @@ async function getWatchedCollection(e) {
 
 function getQueueCollection(e) {
   // Notiflix.Loading.standard();
-
+  preload();
+  setTimeout(() => {
+    preload();
+  }, 300);
   // refs.getWatchedDataBtn.classList.contains('button--active')
   //   ? refs.getWatchedDataBtn.classList.remove('button--active')
   //   : null;
