@@ -1,0 +1,13 @@
+.youtube-modal {
+  min-width: 280px;
+  min-height: 166px;
+
+  @include mq(tablet) {
+    min-width: 760px;
+    min-height: 450px;
+  }
+  @include mq(desktop) {
+    min-width: 1024px;
+    min-height: 500px;
+  }
+}
