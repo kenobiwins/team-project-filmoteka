@@ -174,6 +174,8 @@ export function createGalery(data) {
         return `<li class="films-list__item" data-id="${id}">
   <a href="#" class="films-list__link">
     <img
+      width="395"
+      height="574"
       src="${poster_path}"
       alt="${title}"
       class="films-list__img"
