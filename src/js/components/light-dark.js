@@ -21,9 +21,8 @@ function switchTheme() {
   footerChange.classList.toggle('footer-color');
 }
 
-function rememberDarkForLib(e) {
+function rememberDarkForLib() {
   savedTheme = localStorage.getItem('ui-theme');
-  // console.log(savedTheme);
 
   if (savedTheme !== 'dark') {
     return;

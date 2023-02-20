@@ -48,10 +48,6 @@ let instance;
 if (document.title === 'Filmoteka') {
   refs.form.addEventListener('submit', onFormSubmit);
   window.addEventListener('DOMContentLoaded', async () => {
-    // preload();
-    // setTimeout(() => {
-    //   preload();
-    // }, 700);
     if (!JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))) {
       await getGenresList().then(array => {
         localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(array));
@@ -65,9 +61,6 @@ if (document.title === 'Filmoteka') {
       pagination(data.data.page, data.data.total_pages);
       refs.pagination.addEventListener('click', paginationTrendMovie);
     });
-    // setTimeout(() => {
-    //   preload();
-    // }, 700);
   });
 }
 
@@ -84,11 +77,12 @@ function onFormSubmit(e) {
     return;
   }
   preload();
-  // if (searchQuery != '') {
+
   searchMovies(searchQuery.value.trim(), page).then(data => {
     if (data.data.results.length === 0) {
       refs.errorSearchRef.classList.remove('is-hidden');
       preload();
+
       setTimeout(() => {
         refs.errorSearchRef.classList.add('is-hidden');
       }, 5000);
@@ -104,19 +98,11 @@ function onFormSubmit(e) {
       pagination(data.data.page, data.data.total_pages);
       refs.pagination.removeEventListener('click', paginationTrendMovie);
       refs.pagination.addEventListener('click', paginationOnSearch);
-      setTimeout(() => {
-        preload();
-      }, 700);
+      // setTimeout(() => {
+      preload();
+      // }, 700);
     }
   });
-  // }
-  //   else {
-  //     clearGallery();
-  //     getPopularMovies(page).then(data => {
-  //       galleryMarkup(createGalery(data));
-  //     });
-  //   }
-  // e.currentTarget.reset();
 }
 
 export function createGalery(data) {
